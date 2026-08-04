@@ -1,0 +1,77 @@
+{
+  "sagas": [
+    { "id": 1, "name": "East Blue", "order": 1 }
+  ],
+  "arcs": [
+    { "id": 1, "sagaId": 1, "name": "Romance Dawn", "order": 1, "globalOrder": 1 },
+    { "id": 2, "sagaId": 1, "name": "Orange Town", "order": 2, "globalOrder": 2 },
+    { "id": 3, "sagaId": 1, "name": "Syrup Village", "order": 3, "globalOrder": 3 },
+    { "id": 4, "sagaId": 1, "name": "Baratie", "order": 4, "globalOrder": 4 },
+    { "id": 5, "sagaId": 1, "name": "Arlong Park", "order": 5, "globalOrder": 5 },
+    { "id": 6, "sagaId": 1, "name": "Loguetown", "order": 6, "globalOrder": 6 }
+  ],
+  "islands": [
+    { "id": 1, "name": "Fuscia Village", "description": "Vila pacata na Dawn Island onde Luffy cresceu e onde sua jornada como pirata começa.", "coordinateX": 0, "coordinateY": 0, "coordinateZ": 0, "rotationY": 0, "scale": 1, "modelUrl": "/models/fuscia-village.glb", "thumbnailUrl": "/thumbs/fuscia-village.png", "isActive": true },
+    { "id": 2, "name": "Orange Town", "description": "Cidade litorânea aterrorizada pelo bando do pirata Buggy, o Palhaço.", "coordinateX": 100, "coordinateY": 0, "coordinateZ": 0, "rotationY": 0, "scale": 1, "modelUrl": "/models/orange-town.glb", "thumbnailUrl": "/thumbs/orange-town.png", "isActive": true },
+    { "id": 3, "name": "Syrup Village", "description": "Vila costeira, lar de Usopp e Kaya, ameaçada pelo bando de Kuro.", "coordinateX": 200, "coordinateY": 0, "coordinateZ": 0, "rotationY": 0, "scale": 1, "modelUrl": "/models/syrup-village.glb", "thumbnailUrl": "/thumbs/syrup-village.png", "isActive": true },
+    { "id": 4, "name": "Baratie", "description": "Restaurante flutuante no meio do mar, comandado pelo chef Zeff.", "coordinateX": 300, "coordinateY": 0, "coordinateZ": 0, "rotationY": 0, "scale": 1, "modelUrl": "/models/baratie.glb", "thumbnailUrl": "/thumbs/baratie.png", "isActive": true },
+    { "id": 5, "name": "Conomi Islands", "description": "Arquipélago dominado pelos homens-peixe de Arlong, lar de Nami.", "coordinateX": 400, "coordinateY": 0, "coordinateZ": 0, "rotationY": 0, "scale": 1, "modelUrl": "/models/conomi-islands.glb", "thumbnailUrl": "/thumbs/conomi-islands.png", "isActive": true },
+    { "id": 6, "name": "Loguetown", "description": "A cidade do início e do fim, onde Gold Roger nasceu e foi executado.", "coordinateX": 500, "coordinateY": 0, "coordinateZ": 0, "rotationY": 0, "scale": 1, "modelUrl": "/models/loguetown.glb", "thumbnailUrl": "/thumbs/loguetown.png", "isActive": true }
+  ],
+  "arcIslands": [
+    { "id": 1, "arcId": 1, "islandId": 1, "order": 1 },
+    { "id": 2, "arcId": 2, "islandId": 2, "order": 1 },
+    { "id": 3, "arcId": 3, "islandId": 3, "order": 1 },
+    { "id": 4, "arcId": 4, "islandId": 4, "order": 1 },
+    { "id": 5, "arcId": 5, "islandId": 5, "order": 1 },
+    { "id": 6, "arcId": 6, "islandId": 6, "order": 1 }
+  ],
+  "characters": [
+    { "id": 1, "name": "Monkey D. Luffy", "slug": "luffy" },
+    { "id": 2, "name": "Roronoa Zoro", "slug": "zoro" },
+    { "id": 3, "name": "Nami", "slug": "nami" },
+    { "id": 4, "name": "Usopp", "slug": "usopp" },
+    { "id": 5, "name": "Sanji", "slug": "sanji" },
+    { "id": 6, "name": "Buggy", "slug": "buggy" },
+    { "id": 7, "name": "Arlong", "slug": "arlong" }
+  ],
+  "characterVersions": [
+    { "id": 1, "characterId": 1, "arcId": 1, "alias": "Luffy", "epithet": "Straw Hat", "bounty": null, "status": "Alive", "faction": "StrawHatPirates", "imageUrl": "/portraits/luffy-1.png", "description": "Um garoto de borracha determinado a se tornar o Rei dos Piratas." },
+    { "id": 2, "characterId": 2, "arcId": 1, "alias": "Zoro", "epithet": "Pirate Hunter", "bounty": null, "status": "Alive", "faction": "StrawHatPirates", "imageUrl": "/portraits/zoro-1.png", "description": "Ex-caçador de piratas recrutado por Luffy, sonha em ser o maior espadachim do mundo." },
+    { "id": 3, "characterId": 6, "arcId": 2, "alias": "Buggy", "epithet": "the Clown", "bounty": 15000000, "status": "Alive", "faction": "BuggyPirates", "imageUrl": "/portraits/buggy-1.png", "description": "Pirata que comeu a Bara Bara no Mi, capaz de separar o próprio corpo em pedaços." },
+    { "id": 4, "characterId": 3, "arcId": 2, "alias": "Nami", "epithet": "Cat Burglar", "bounty": null, "status": "Alive", "faction": "Unaffiliated", "imageUrl": "/portraits/nami-1.png", "description": "Ladra e navegadora talentosa, ainda não faz parte oficialmente da tripulação." },
+    { "id": 5, "characterId": 4, "arcId": 3, "alias": "Usopp", "epithet": "", "bounty": null, "status": "Alive", "faction": "StrawHatPirates", "imageUrl": "/portraits/usopp-1.png", "description": "Contador de histórias e atirador de elite de Syrup Village." },
+    { "id": 6, "characterId": 5, "arcId": 4, "alias": "Sanji", "epithet": "Black Leg", "bounty": null, "status": "Alive", "faction": "StrawHatPirates", "imageUrl": "/portraits/sanji-1.png", "description": "Cozinheiro do Baratie, luta usando apenas as pernas para não machucar as mãos." },
+    { "id": 7, "characterId": 7, "arcId": 5, "alias": "Arlong", "epithet": "Saw Tooth", "bounty": 20000000, "status": "Alive", "faction": "ArlongPirates", "imageUrl": "/portraits/arlong-1.png", "description": "Homem-peixe que domina as Conomi Islands e escraviza seus habitantes." },
+    { "id": 8, "characterId": 3, "arcId": 5, "alias": "Nami", "epithet": "Cat Burglar", "bounty": null, "status": "Alive", "faction": "StrawHatPirates", "imageUrl": "/portraits/nami-2.png", "description": "Livre da dívida com Arlong, agora navegadora oficial dos Chapéus de Palha." }
+  ],
+  "events": [
+    { "id": 1, "arcIslandId": 1, "title": "Luffy enfrenta Alvida e resgata Coby", "description": "Luffy revela seu poder de fruta do diabo e liberta Coby do bando de Alvida.", "type": "Combat", "order": 1 },
+    { "id": 2, "arcIslandId": 1, "title": "Luffy recruta Zoro", "description": "Luffy liberta Zoro, preso pela Marinha, e o convida para a tripulação.", "type": "Lore", "order": 2 },
+    { "id": 3, "arcIslandId": 2, "title": "Confronto com o bando de Buggy", "description": "Luffy e Zoro enfrentam o bando de Buggy para libertar Orange Town.", "type": "Combat", "order": 1 },
+    { "id": 4, "arcIslandId": 3, "title": "Usopp se junta à tripulação", "description": "Após o confronto com o bando de Kuro, Usopp embarca no Going Merry.", "type": "Lore", "order": 1 },
+    { "id": 5, "arcIslandId": 4, "title": "Duelo contra Don Krieg", "description": "Sanji e Luffy enfrentam a frota armada de Don Krieg em defesa do Baratie.", "type": "Combat", "order": 1 },
+    { "id": 6, "arcIslandId": 4, "title": "Sanji se junta à tripulação", "description": "Sanji deixa o Baratie para navegar em busca do All Blue.", "type": "Lore", "order": 2 },
+    { "id": 7, "arcIslandId": 5, "title": "Batalha contra Arlong", "description": "Luffy enfrenta Arlong para libertar Nami e a vila de Cocoyasi.", "type": "Combat", "order": 1 },
+    { "id": 8, "arcIslandId": 5, "title": "Nami se junta oficialmente à tripulação", "description": "Livre da dívida com Arlong, Nami assume seu lugar como navegadora dos Chapéus de Palha.", "type": "Lore", "order": 2 },
+    { "id": 9, "arcIslandId": 6, "title": "Chegada a Loguetown", "description": "A tripulação visita a cidade onde Gold Roger nasceu e foi executado, a porta de entrada para a Grand Line.", "type": "Lore", "order": 1 }
+  ],
+  "eventParticipants": [
+    { "eventId": 1, "characterVersionId": 1 },
+    { "eventId": 2, "characterVersionId": 1 },
+    { "eventId": 2, "characterVersionId": 2 },
+    { "eventId": 3, "characterVersionId": 1 },
+    { "eventId": 3, "characterVersionId": 2 },
+    { "eventId": 3, "characterVersionId": 3 },
+    { "eventId": 4, "characterVersionId": 1 },
+    { "eventId": 4, "characterVersionId": 5 },
+    { "eventId": 5, "characterVersionId": 1 },
+    { "eventId": 5, "characterVersionId": 2 },
+    { "eventId": 5, "characterVersionId": 6 },
+    { "eventId": 6, "characterVersionId": 6 },
+    { "eventId": 7, "characterVersionId": 1 },
+    { "eventId": 7, "characterVersionId": 7 },
+    { "eventId": 8, "characterVersionId": 8 },
+    { "eventId": 9, "characterVersionId": 1 }
+  ]
+}
