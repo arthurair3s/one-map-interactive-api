@@ -1,3 +1,5 @@
+using OnePieceMap.Domain.Entities;
+
 namespace OnePieceMap.Application.Features.Islands;
 
 public record IslandDto(
@@ -8,9 +10,11 @@ public record IslandDto(
 public record CreateIslandDto(
     string Name, string Description,
     float CoordinateX, float CoordinateY, float CoordinateZ,
-    float RotationY, float Scale, string ModelUrl, string ThumbnailUrl, bool IsActive);
+    float RotationY, float Scale, string ModelUrl, string ThumbnailUrl, bool IsActive,
+    Dictionary<string, IslandTranslation>? Translations = null);
 
 public record UpdateIslandDto(
     string Name, string Description,
     float CoordinateX, float CoordinateY, float CoordinateZ,
-    float RotationY, float Scale, string ModelUrl, string ThumbnailUrl, bool IsActive);
+    float RotationY, float Scale, string ModelUrl, string ThumbnailUrl, bool IsActive,
+    Dictionary<string, IslandTranslation>? Translations = null);

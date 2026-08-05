@@ -9,6 +9,7 @@ public class CharacterVersionConfiguration : IEntityTypeConfiguration<CharacterV
     public void Configure(EntityTypeBuilder<CharacterVersion> builder)
     {
         builder.HasIndex(cv => new { cv.CharacterId, cv.ArcId }).IsUnique();
+        builder.Property(cv => cv.Translations).ConfigureTranslations();
 
         builder.HasOne(cv => cv.Character)
             .WithMany(c => c.Versions)

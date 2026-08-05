@@ -12,18 +12,18 @@ public class ArcsController(
     IValidator<CreateArcDto> createValidator,
     IValidator<UpdateArcDto> updateValidator) : ControllerBase
 {
-    /// <summary>Lists arcs ordered by GlobalOrder, optionally filtered by saga.</summary>
+    /// <summary>Lists arcs ordered by GlobalOrder, optionally filtered by saga. Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<ArcDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<ArcDto>>> GetAll([FromQuery] int? sagaId = null)
-        => Ok(await service.GetAllAsync(sagaId));
+    public async Task<ActionResult<IEnumerable<ArcDto>>> GetAll([FromQuery] int? sagaId = null, [FromQuery] string? locale = null)
+        => Ok(await service.GetAllAsync(sagaId, locale));
 
-    /// <summary>Gets a single arc by id.</summary>
+    /// <summary>Gets a single arc by id. Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(ArcDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<ArcDto>> GetById(int id)
-        => Ok(await service.GetByIdAsync(id));
+    public async Task<ActionResult<ArcDto>> GetById(int id, [FromQuery] string? locale = null)
+        => Ok(await service.GetByIdAsync(id, locale));
 
     /// <summary>Creates an arc under an existing saga. Order (within the saga) and GlobalOrder must both be unique — RN02.</summary>
     [HttpPost]

@@ -10,6 +10,7 @@ public class ArcConfiguration : IEntityTypeConfiguration<Arc>
     {
         builder.HasIndex(a => new { a.SagaId, a.Order }).IsUnique();
         builder.HasIndex(a => a.GlobalOrder).IsUnique();
+        builder.Property(a => a.Translations).ConfigureTranslations();
 
         builder.HasOne(a => a.Saga)
             .WithMany(s => s.Arcs)

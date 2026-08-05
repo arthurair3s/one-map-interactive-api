@@ -24,7 +24,7 @@ public class SeedRunner(AppDbContext context)
 
         await ClearAsync();
 
-        var sagas = data.Sagas.ToDictionary(s => s.Id, s => new Saga { Name = s.Name, Order = s.Order });
+        var sagas = data.Sagas.ToDictionary(s => s.Id, s => new Saga { Name = s.Name, Order = s.Order, Translations = s.Translations });
         context.Sagas.AddRange(sagas.Values);
         await context.SaveChangesAsync();
 
@@ -33,7 +33,8 @@ public class SeedRunner(AppDbContext context)
             SagaId = sagas[a.SagaId].Id,
             Name = a.Name,
             Order = a.Order,
-            GlobalOrder = a.GlobalOrder
+            GlobalOrder = a.GlobalOrder,
+            Translations = a.Translations
         });
         context.Arcs.AddRange(arcs.Values);
         await context.SaveChangesAsync();
@@ -49,7 +50,8 @@ public class SeedRunner(AppDbContext context)
             Scale = i.Scale,
             ModelUrl = i.ModelUrl,
             ThumbnailUrl = i.ThumbnailUrl,
-            IsActive = i.IsActive
+            IsActive = i.IsActive,
+            Translations = i.Translations
         });
         context.Islands.AddRange(islands.Values);
         await context.SaveChangesAsync();
@@ -77,7 +79,8 @@ public class SeedRunner(AppDbContext context)
             Status = cv.Status,
             Faction = cv.Faction,
             ImageUrl = cv.ImageUrl,
-            Description = cv.Description
+            Description = cv.Description,
+            Translations = cv.Translations
         });
         context.CharacterVersions.AddRange(characterVersions.Values);
         await context.SaveChangesAsync();
@@ -88,7 +91,8 @@ public class SeedRunner(AppDbContext context)
             Title = e.Title,
             Description = e.Description,
             Type = e.Type,
-            Order = e.Order
+            Order = e.Order,
+            Translations = e.Translations
         });
         context.Events.AddRange(events.Values);
         await context.SaveChangesAsync();

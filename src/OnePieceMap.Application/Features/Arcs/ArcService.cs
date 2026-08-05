@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OnePieceMap.Application.Common;
 using OnePieceMap.Application.Common.Exceptions;
 using OnePieceMap.Domain.Entities;
 using OnePieceMap.Infrastructure.Data;
@@ -7,7 +8,7 @@ namespace OnePieceMap.Application.Features.Arcs;
 
 public class ArcService(AppDbContext context)
 {
-    public async Task<IEnumerable<ArcDto>> GetAllAsync(int? sagaId)
+    public async Task<IEnumerable<ArcDto>> GetAllAsync(int? sagaId, string? locale = null)
     {
         var query = context.Arcs.AsQueryable();
 
@@ -16,18 +17,17 @@ public class ArcService(AppDbContext context)
             query = query.Where(a => a.SagaId == sagaId);
         }
 
-        return await query
-            .OrderBy(a => a.GlobalOrder)
-            .Select(a => new ArcDto(a.Id, a.SagaId, a.Name, a.Order, a.GlobalOrder))
-            .ToListAsync();
+        var arcs = await query.OrderBy(a => a.GlobalOrder).ToListAsync();
+
+        return arcs.Select(a => ToDto(a, locale));
     }
 
-    public async Task<ArcDto> GetByIdAsync(int id)
+    public async Task<ArcDto> GetByIdAsync(int id, string? locale = null)
     {
         var arc = await context.Arcs.FindAsync(id)
             ?? throw new NotFoundException($"Arc {id} not found.");
 
-        return new ArcDto(arc.Id, arc.SagaId, arc.Name, arc.Order, arc.GlobalOrder);
+        return ToDto(arc, locale);
     }
 
     public async Task<ArcDto> CreateAsync(CreateArcDto dto)
@@ -40,12 +40,13 @@ public class ArcService(AppDbContext context)
             SagaId = dto.SagaId,
             Name = dto.Name,
             Order = dto.Order,
-            GlobalOrder = dto.GlobalOrder
+            GlobalOrder = dto.GlobalOrder,
+            Translations = dto.Translations
         };
         context.Arcs.Add(arc);
         await context.SaveChangesAsync();
 
-        return new ArcDto(arc.Id, arc.SagaId, arc.Name, arc.Order, arc.GlobalOrder);
+        return ToDto(arc);
     }
 
     public async Task<ArcDto> UpdateAsync(int id, UpdateArcDto dto)
@@ -60,9 +61,10 @@ public class ArcService(AppDbContext context)
         arc.Name = dto.Name;
         arc.Order = dto.Order;
         arc.GlobalOrder = dto.GlobalOrder;
+        arc.Translations = dto.Translations;
         await context.SaveChangesAsync();
 
-        return new ArcDto(arc.Id, arc.SagaId, arc.Name, arc.Order, arc.GlobalOrder);
+        return ToDto(arc);
     }
 
     public async Task DeleteAsync(int id)
@@ -110,4 +112,7 @@ public class ArcService(AppDbContext context)
             throw new ConflictException($"Another arc already uses this {field}.");
         }
     }
+
+    private static ArcDto ToDto(Arc a, string? locale = null) => new(
+        a.Id, a.SagaId, LocaleResolver.Resolve(a.Name, a.Translations, locale, t => t.Name), a.Order, a.GlobalOrder);
 }

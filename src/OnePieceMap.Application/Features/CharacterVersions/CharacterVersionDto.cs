@@ -1,3 +1,5 @@
+using OnePieceMap.Domain.Entities;
+
 namespace OnePieceMap.Application.Features.CharacterVersions;
 
 public record CharacterVersionDto(
@@ -7,8 +9,8 @@ public record CharacterVersionDto(
 
 public record CreateCharacterVersionDto(
     int ArcId, string Alias, string Epithet, long? Bounty, string Status, string Faction,
-    string ImageUrl, string Description);
+    string ImageUrl, string Description, Dictionary<string, CharacterVersionTranslation>? Translations = null);
 
 public record UpdateCharacterVersionDto(
     int ArcId, string Alias, string Epithet, long? Bounty, string Status, string Faction,
-    string ImageUrl, string Description);
+    string ImageUrl, string Description, Dictionary<string, CharacterVersionTranslation>? Translations = null);

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OnePieceMap.Application.Common;
 using OnePieceMap.Application.Common.Exceptions;
 using OnePieceMap.Domain.Entities;
 using OnePieceMap.Domain.Enums;
@@ -8,7 +9,7 @@ namespace OnePieceMap.Application.Features.CharacterVersions;
 
 public class CharacterVersionService(AppDbContext context)
 {
-    public async Task<IEnumerable<CharacterVersionDto>> GetByCharacterAsync(int characterId)
+    public async Task<IEnumerable<CharacterVersionDto>> GetByCharacterAsync(int characterId, string? locale = null)
     {
         await EnsureCharacterExistsAsync(characterId);
 
@@ -17,7 +18,7 @@ public class CharacterVersionService(AppDbContext context)
             .OrderBy(cv => cv.Arc.GlobalOrder)
             .ToListAsync();
 
-        return versions.Select(ToDto);
+        return versions.Select(v => ToDto(v, locale));
     }
 
     // RN04: unique CharacterVersion per (Character, Arc) pair.
@@ -37,7 +38,8 @@ public class CharacterVersionService(AppDbContext context)
             Status = ParseStatus(dto.Status),
             Faction = ParseFaction(dto.Faction),
             ImageUrl = dto.ImageUrl,
-            Description = dto.Description
+            Description = dto.Description,
+            Translations = dto.Translations
         };
         context.CharacterVersions.Add(version);
         await context.SaveChangesAsync();
@@ -61,6 +63,7 @@ public class CharacterVersionService(AppDbContext context)
         version.Faction = ParseFaction(dto.Faction);
         version.ImageUrl = dto.ImageUrl;
         version.Description = dto.Description;
+        version.Translations = dto.Translations;
         await context.SaveChangesAsync();
 
         return ToDto(version);
@@ -68,7 +71,7 @@ public class CharacterVersionService(AppDbContext context)
 
     // RN05: the version shown for (character, activeArc) is the one whose Arc.GlobalOrder
     // is the largest value <= the active arc's GlobalOrder. Null means not yet introduced.
-    public async Task<CharacterVersionDto?> GetEffectiveVersionAsync(int characterId, int activeArcId)
+    public async Task<CharacterVersionDto?> GetEffectiveVersionAsync(int characterId, int activeArcId, string? locale = null)
     {
         var activeArc = await context.Arcs.FindAsync(activeArcId)
             ?? throw new NotFoundException($"Arc {activeArcId} not found.");
@@ -78,7 +81,7 @@ public class CharacterVersionService(AppDbContext context)
             .OrderByDescending(cv => cv.Arc.GlobalOrder)
             .FirstOrDefaultAsync();
 
-        return version is null ? null : ToDto(version);
+        return version is null ? null : ToDto(version, locale);
     }
 
     public async Task DeleteAsync(int id)
@@ -131,7 +134,10 @@ public class CharacterVersionService(AppDbContext context)
 
     private static Faction ParseFaction(string faction) => Enum.Parse<Faction>(faction, ignoreCase: true);
 
-    private static CharacterVersionDto ToDto(CharacterVersion cv) => new(
-        cv.Id, cv.CharacterId, cv.ArcId, cv.Alias, cv.Epithet, cv.Bounty, cv.Status.ToString(), cv.Faction.ToString(),
-        cv.ImageUrl, cv.Description);
+    private static CharacterVersionDto ToDto(CharacterVersion cv, string? locale = null) => new(
+        cv.Id, cv.CharacterId, cv.ArcId,
+        LocaleResolver.Resolve(cv.Alias, cv.Translations, locale, t => t.Alias),
+        LocaleResolver.Resolve(cv.Epithet, cv.Translations, locale, t => t.Epithet),
+        cv.Bounty, cv.Status.ToString(), cv.Faction.ToString(), cv.ImageUrl,
+        LocaleResolver.Resolve(cv.Description, cv.Translations, locale, t => t.Description));
 }

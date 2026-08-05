@@ -8,37 +8,38 @@ namespace OnePieceMap.Application.Features.Sagas;
 
 public class SagaService(AppDbContext context)
 {
-    public async Task<PagedResult<SagaDto>> GetAllAsync(int page, int pageSize)
+    public async Task<PagedResult<SagaDto>> GetAllAsync(int page, int pageSize, string? locale = null)
     {
         var query = context.Sagas.OrderBy(s => s.Order);
 
         var total = await query.CountAsync();
-        var items = await query
+        var sagas = await query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .Select(s => new SagaDto(s.Id, s.Name, s.Order))
             .ToListAsync();
+
+        var items = sagas.Select(s => ToDto(s, locale));
 
         return new PagedResult<SagaDto> { Items = items, Total = total, Page = page, PageSize = pageSize };
     }
 
-    public async Task<SagaDto> GetByIdAsync(int id)
+    public async Task<SagaDto> GetByIdAsync(int id, string? locale = null)
     {
         var saga = await context.Sagas.FindAsync(id)
             ?? throw new NotFoundException($"Saga {id} not found.");
 
-        return new SagaDto(saga.Id, saga.Name, saga.Order);
+        return ToDto(saga, locale);
     }
 
     public async Task<SagaDto> CreateAsync(CreateSagaDto dto)
     {
         await EnsureUniqueAsync(dto.Name, dto.Order, excludingId: null);
 
-        var saga = new Saga { Name = dto.Name, Order = dto.Order };
+        var saga = new Saga { Name = dto.Name, Order = dto.Order, Translations = dto.Translations };
         context.Sagas.Add(saga);
         await context.SaveChangesAsync();
 
-        return new SagaDto(saga.Id, saga.Name, saga.Order);
+        return ToDto(saga);
     }
 
     public async Task<SagaDto> UpdateAsync(int id, UpdateSagaDto dto)
@@ -50,9 +51,10 @@ public class SagaService(AppDbContext context)
 
         saga.Name = dto.Name;
         saga.Order = dto.Order;
+        saga.Translations = dto.Translations;
         await context.SaveChangesAsync();
 
-        return new SagaDto(saga.Id, saga.Name, saga.Order);
+        return ToDto(saga);
     }
 
     public async Task DeleteAsync(int id)
@@ -84,4 +86,7 @@ public class SagaService(AppDbContext context)
             throw new ConflictException($"Another saga already uses this {field}.");
         }
     }
+
+    private static SagaDto ToDto(Saga s, string? locale = null) => new(
+        s.Id, LocaleResolver.Resolve(s.Name, s.Translations, locale, t => t.Name), s.Order);
 }

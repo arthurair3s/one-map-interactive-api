@@ -15,32 +15,32 @@ public class IslandsController(
     IValidator<CreateIslandDto> createValidator,
     IValidator<UpdateIslandDto> updateValidator) : ControllerBase
 {
-    /// <summary>Lists islands (raw data, no arc context), paginated.</summary>
+    /// <summary>Lists islands (raw data, no arc context), paginated. Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet]
     [ProducesResponseType(typeof(PagedResult<IslandDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
-        => Ok(await service.GetAllAsync(page, pageSize));
+    public async Task<ActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? locale = null)
+        => Ok(await service.GetAllAsync(page, pageSize, locale));
 
-    /// <summary>Gets a single island by id (raw data, no arc context).</summary>
+    /// <summary>Gets a single island by id (raw data, no arc context). Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(IslandDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IslandDto>> GetById(int id)
-        => Ok(await service.GetByIdAsync(id));
+    public async Task<ActionResult<IslandDto>> GetById(int id, [FromQuery] string? locale = null)
+        => Ok(await service.GetByIdAsync(id, locale));
 
-    /// <summary>Gets an island's description, events and present characters (RN05-resolved) for a specific arc — RN08.</summary>
+    /// <summary>Gets an island's description, events and present characters (RN05-resolved) for a specific arc — RN08. Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet("{id:int}/details")]
     [ProducesResponseType(typeof(IslandDetailsDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IslandDetailsDto>> GetDetails(int id, [FromQuery] int? arcId)
+    public async Task<ActionResult<IslandDetailsDto>> GetDetails(int id, [FromQuery] int? arcId, [FromQuery] string? locale = null)
     {
         if (this.RequireQueryParam(arcId, nameof(arcId)) is { } invalid)
         {
             return invalid;
         }
 
-        return Ok(await wikiService.GetIslandDetailsAsync(id, arcId!.Value));
+        return Ok(await wikiService.GetIslandDetailsAsync(id, arcId!.Value, locale));
     }
 
     /// <summary>Creates an island. Name must be unique.</summary>

@@ -12,27 +12,27 @@ public class EventsController(
     IValidator<CreateEventDto> createValidator,
     IValidator<UpdateEventDto> updateValidator) : ControllerBase
 {
-    /// <summary>Lists events for a given arc-island pair, ordered by their order within it.</summary>
+    /// <summary>Lists events for a given arc-island pair, ordered by their order within it. Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<EventDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<EventDto>>> GetAll([FromQuery] int? arcIslandId)
+    public async Task<ActionResult<IEnumerable<EventDto>>> GetAll([FromQuery] int? arcIslandId, [FromQuery] string? locale = null)
     {
         if (this.RequireQueryParam(arcIslandId, nameof(arcIslandId)) is { } invalid)
         {
             return invalid;
         }
 
-        return Ok(await service.GetAllAsync(arcIslandId!.Value));
+        return Ok(await service.GetAllAsync(arcIslandId!.Value, locale));
     }
 
-    /// <summary>Gets an event's detail, including participant character-version ids.</summary>
+    /// <summary>Gets an event's detail, including participant character-version ids. Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(EventDetailDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<EventDetailDto>> GetById(int id)
-        => Ok(await service.GetByIdAsync(id));
+    public async Task<ActionResult<EventDetailDto>> GetById(int id, [FromQuery] string? locale = null)
+        => Ok(await service.GetByIdAsync(id, locale));
 
     /// <summary>Creates an event under an existing arc-island pair — RN07. Order must be unique within it — RN03.</summary>
     [HttpPost]

@@ -8,29 +8,27 @@ namespace OnePieceMap.Application.Features.Islands;
 
 public class IslandService(AppDbContext context)
 {
-    public async Task<PagedResult<IslandDto>> GetAllAsync(int page, int pageSize)
+    public async Task<PagedResult<IslandDto>> GetAllAsync(int page, int pageSize, string? locale = null)
     {
         var query = context.Islands.OrderBy(i => i.Name);
 
         var total = await query.CountAsync();
-        var items = await query
+        var islands = await query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
-            .Select(i => new IslandDto(
-                i.Id, i.Name, i.Description,
-                i.CoordinateX, i.CoordinateY, i.CoordinateZ,
-                i.RotationY, i.Scale, i.ModelUrl, i.ThumbnailUrl, i.IsActive))
             .ToListAsync();
+
+        var items = islands.Select(i => ToDto(i, locale));
 
         return new PagedResult<IslandDto> { Items = items, Total = total, Page = page, PageSize = pageSize };
     }
 
-    public async Task<IslandDto> GetByIdAsync(int id)
+    public async Task<IslandDto> GetByIdAsync(int id, string? locale = null)
     {
         var island = await context.Islands.FindAsync(id)
             ?? throw new NotFoundException($"Island {id} not found.");
 
-        return ToDto(island);
+        return ToDto(island, locale);
     }
 
     public async Task<IslandDto> CreateAsync(CreateIslandDto dto)
@@ -48,7 +46,8 @@ public class IslandService(AppDbContext context)
             Scale = dto.Scale,
             ModelUrl = dto.ModelUrl,
             ThumbnailUrl = dto.ThumbnailUrl,
-            IsActive = dto.IsActive
+            IsActive = dto.IsActive,
+            Translations = dto.Translations
         };
         context.Islands.Add(island);
         await context.SaveChangesAsync();
@@ -73,6 +72,7 @@ public class IslandService(AppDbContext context)
         island.ModelUrl = dto.ModelUrl;
         island.ThumbnailUrl = dto.ThumbnailUrl;
         island.IsActive = dto.IsActive;
+        island.Translations = dto.Translations;
         await context.SaveChangesAsync();
 
         return ToDto(island);
@@ -106,8 +106,10 @@ public class IslandService(AppDbContext context)
         }
     }
 
-    private static IslandDto ToDto(Island i) => new(
-        i.Id, i.Name, i.Description,
+    private static IslandDto ToDto(Island i, string? locale = null) => new(
+        i.Id,
+        LocaleResolver.Resolve(i.Name, i.Translations, locale, t => t.Name),
+        LocaleResolver.Resolve(i.Description, i.Translations, locale, t => t.Description),
         i.CoordinateX, i.CoordinateY, i.CoordinateZ,
         i.RotationY, i.Scale, i.ModelUrl, i.ThumbnailUrl, i.IsActive);
 }

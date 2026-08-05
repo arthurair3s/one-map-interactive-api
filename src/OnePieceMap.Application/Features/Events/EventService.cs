@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OnePieceMap.Application.Common;
 using OnePieceMap.Application.Common.Exceptions;
 using OnePieceMap.Domain.Enums;
 using OnePieceMap.Infrastructure.Data;
@@ -8,7 +9,7 @@ namespace OnePieceMap.Application.Features.Events;
 
 public class EventService(AppDbContext context)
 {
-    public async Task<IEnumerable<EventDto>> GetAllAsync(int arcIslandId)
+    public async Task<IEnumerable<EventDto>> GetAllAsync(int arcIslandId, string? locale = null)
     {
         await EnsureArcIslandExistsAsync(arcIslandId);
 
@@ -17,10 +18,10 @@ public class EventService(AppDbContext context)
             .OrderBy(e => e.Order)
             .ToListAsync();
 
-        return events.Select(ToDto);
+        return events.Select(e => ToDto(e, locale));
     }
 
-    public async Task<EventDetailDto> GetByIdAsync(int id)
+    public async Task<EventDetailDto> GetByIdAsync(int id, string? locale = null)
     {
         var ev = await context.Events
             .Include(e => e.Participants)
@@ -28,7 +29,10 @@ public class EventService(AppDbContext context)
             ?? throw new NotFoundException($"Event {id} not found.");
 
         return new EventDetailDto(
-            ev.Id, ev.ArcIslandId, ev.Title, ev.Description, ev.Type.ToString(), ev.Order,
+            ev.Id, ev.ArcIslandId,
+            LocaleResolver.Resolve(ev.Title, ev.Translations, locale, t => t.Title),
+            LocaleResolver.Resolve(ev.Description, ev.Translations, locale, t => t.Description),
+            ev.Type.ToString(), ev.Order,
             ev.Participants.Select(p => p.CharacterVersionId));
     }
 
@@ -45,7 +49,8 @@ public class EventService(AppDbContext context)
             Title = dto.Title,
             Description = dto.Description,
             Type = ParseType(dto.Type),
-            Order = dto.Order
+            Order = dto.Order,
+            Translations = dto.Translations
         };
         context.Events.Add(ev);
         await context.SaveChangesAsync();
@@ -66,6 +71,7 @@ public class EventService(AppDbContext context)
         ev.Description = dto.Description;
         ev.Type = ParseType(dto.Type);
         ev.Order = dto.Order;
+        ev.Translations = dto.Translations;
         await context.SaveChangesAsync();
 
         return ToDto(ev);
@@ -104,5 +110,9 @@ public class EventService(AppDbContext context)
 
     private static EventType ParseType(string type) => Enum.Parse<EventType>(type, ignoreCase: true);
 
-    private static EventDto ToDto(Event e) => new(e.Id, e.ArcIslandId, e.Title, e.Description, e.Type.ToString(), e.Order);
+    private static EventDto ToDto(Event e, string? locale = null) => new(
+        e.Id, e.ArcIslandId,
+        LocaleResolver.Resolve(e.Title, e.Translations, locale, t => t.Title),
+        LocaleResolver.Resolve(e.Description, e.Translations, locale, t => t.Description),
+        e.Type.ToString(), e.Order);
 }

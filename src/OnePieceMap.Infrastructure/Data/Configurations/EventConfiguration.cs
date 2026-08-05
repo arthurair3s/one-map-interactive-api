@@ -9,6 +9,7 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
     public void Configure(EntityTypeBuilder<Event> builder)
     {
         builder.HasIndex(e => new { e.ArcIslandId, e.Order }).IsUnique();
+        builder.Property(e => e.Translations).ConfigureTranslations();
 
         builder.HasOne(e => e.ArcIsland)
             .WithMany(ai => ai.Events)

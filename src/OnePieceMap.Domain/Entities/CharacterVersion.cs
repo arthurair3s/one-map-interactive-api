@@ -15,6 +15,7 @@ public class CharacterVersion
     public CharacterStatus Status { get; set; }
     public Faction Faction { get; set; }
     public string ImageUrl { get; set; } = null!;
-    public string Description { get; set; } = null!;
+    public string Description { get; set; } = null!; // en (idioma padrão)
+    public Dictionary<string, CharacterVersionTranslation>? Translations { get; set; }
     public ICollection<EventParticipant> Participations { get; set; } = new List<EventParticipant>();
 }

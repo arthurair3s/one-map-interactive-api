@@ -1,3 +1,4 @@
+using OnePieceMap.Domain.Entities;
 using OnePieceMap.Domain.Enums;
 
 namespace OnePieceMap.Infrastructure.Seed;
@@ -14,14 +15,15 @@ internal record SeedData(
     List<SeedEvent> Events,
     List<SeedEventParticipant> EventParticipants);
 
-internal record SeedSaga(int Id, string Name, int Order);
+internal record SeedSaga(int Id, string Name, int Order, Dictionary<string, SagaTranslation>? Translations = null);
 
-internal record SeedArc(int Id, int SagaId, string Name, int Order, int GlobalOrder);
+internal record SeedArc(int Id, int SagaId, string Name, int Order, int GlobalOrder, Dictionary<string, ArcTranslation>? Translations = null);
 
 internal record SeedIsland(
     int Id, string Name, string Description,
     float CoordinateX, float CoordinateY, float CoordinateZ,
-    float RotationY, float Scale, string ModelUrl, string ThumbnailUrl, bool IsActive);
+    float RotationY, float Scale, string ModelUrl, string ThumbnailUrl, bool IsActive,
+    Dictionary<string, IslandTranslation>? Translations = null);
 
 internal record SeedArcIsland(int Id, int ArcId, int IslandId, int Order);
 
@@ -29,8 +31,11 @@ internal record SeedCharacter(int Id, string Name, string Slug);
 
 internal record SeedCharacterVersion(
     int Id, int CharacterId, int ArcId, string Alias, string Epithet,
-    long? Bounty, CharacterStatus Status, Faction Faction, string ImageUrl, string Description);
+    long? Bounty, CharacterStatus Status, Faction Faction, string ImageUrl, string Description,
+    Dictionary<string, CharacterVersionTranslation>? Translations = null);
 
-internal record SeedEvent(int Id, int ArcIslandId, string Title, string Description, EventType Type, int Order);
+internal record SeedEvent(
+    int Id, int ArcIslandId, string Title, string Description, EventType Type, int Order,
+    Dictionary<string, EventTranslation>? Translations = null);
 
 internal record SeedEventParticipant(int EventId, int CharacterVersionId);

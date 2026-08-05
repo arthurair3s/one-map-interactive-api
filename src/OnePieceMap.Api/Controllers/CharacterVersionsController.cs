@@ -11,12 +11,12 @@ public class CharacterVersionsController(
     CharacterVersionService service,
     IValidator<CreateCharacterVersionDto> createValidator) : ControllerBase
 {
-    /// <summary>Lists all versions of a character, ordered by the arc's GlobalOrder.</summary>
+    /// <summary>Lists all versions of a character, ordered by the arc's GlobalOrder. Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<CharacterVersionDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<IEnumerable<CharacterVersionDto>>> GetByCharacter(int characterId)
-        => Ok(await service.GetByCharacterAsync(characterId));
+    public async Task<ActionResult<IEnumerable<CharacterVersionDto>>> GetByCharacter(int characterId, [FromQuery] string? locale = null)
+        => Ok(await service.GetByCharacterAsync(characterId, locale));
 
     /// <summary>Creates a version of a character tied to an arc. Only one version per (character, arc) pair is allowed — RN04.</summary>
     [HttpPost]

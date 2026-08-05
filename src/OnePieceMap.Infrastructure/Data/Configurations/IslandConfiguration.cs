@@ -9,5 +9,6 @@ public class IslandConfiguration : IEntityTypeConfiguration<Island>
     public void Configure(EntityTypeBuilder<Island> builder)
     {
         builder.HasIndex(i => i.Name).IsUnique();
+        builder.Property(i => i.Translations).ConfigureTranslations();
     }
 }

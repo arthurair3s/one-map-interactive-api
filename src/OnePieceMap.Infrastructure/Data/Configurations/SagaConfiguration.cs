@@ -10,5 +10,6 @@ public class SagaConfiguration : IEntityTypeConfiguration<Saga>
     {
         builder.HasIndex(s => s.Name).IsUnique();
         builder.HasIndex(s => s.Order).IsUnique();
+        builder.Property(s => s.Translations).ConfigureTranslations();
     }
 }

@@ -13,18 +13,18 @@ public class SagasController(
     IValidator<CreateSagaDto> createValidator,
     IValidator<UpdateSagaDto> updateValidator) : ControllerBase
 {
-    /// <summary>Lists sagas, ordered by their display order.</summary>
+    /// <summary>Lists sagas, ordered by their display order. Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet]
     [ProducesResponseType(typeof(PagedResult<SagaDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
-        => Ok(await service.GetAllAsync(page, pageSize));
+    public async Task<ActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? locale = null)
+        => Ok(await service.GetAllAsync(page, pageSize, locale));
 
-    /// <summary>Gets a single saga by id.</summary>
+    /// <summary>Gets a single saga by id. Accepts <c>?locale=</c> (default <c>en</c>) — RN12.</summary>
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(SagaDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<SagaDto>> GetById(int id)
-        => Ok(await service.GetByIdAsync(id));
+    public async Task<ActionResult<SagaDto>> GetById(int id, [FromQuery] string? locale = null)
+        => Ok(await service.GetByIdAsync(id, locale));
 
     /// <summary>Creates a saga. Name and Order must both be unique across sagas.</summary>
     [HttpPost]
