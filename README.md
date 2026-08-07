@@ -1,8 +1,8 @@
 # One Piece Interactive Map — API
 
-ASP.NET Core Web API for the [One Piece Interactive Map](../project_overview.md) project: persistence, business validation and the REST contract consumed by the frontend.
+ASP.NET Core Web API for the [One Piece Interactive Map](../docs/project_overview.md) project: persistence, business validation and the REST contract consumed by the frontend.
 
-For the full data model, business rules (RN01–RN12) and API contract, see [`backend-planning.md`](../backend-planning.md). For the internationalization plan, see [`i18n-planning.md`](../i18n-planning.md).
+For the full data model, business rules (RN01–RN12) and API contract, see [`backend-planning.md`](../docs/backend-planning.md). For the internationalization plan, see [`i18n-planning.md`](../docs/i18n-planning.md).
 
 ## Stack
 
