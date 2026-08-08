@@ -26,10 +26,12 @@ public class WikiService(AppDbContext context, CharacterVersionService character
             query = query.Where(a => a.SagaId == sagaId);
         }
 
-        var arcs = await query.OrderBy(a => a.Order).ToListAsync();
+        // GlobalOrder, not Order: without a sagaId filter this list spans sagas, where
+        // Order repeats per saga and would interleave arcs out of chronological order.
+        var arcs = await query.OrderBy(a => a.GlobalOrder).ToListAsync();
 
         return arcs.Select(a => new WikiArcDto(
-            a.Id, LocaleResolver.Resolve(a.Name, a.Translations, locale, t => t.Name), a.Order));
+            a.Id, LocaleResolver.Resolve(a.Name, a.Translations, locale, t => t.Name), a.Order, a.GlobalOrder));
     }
 
     // RN11: the map loads every island ever revealed in one shot (no arcId filter), each
