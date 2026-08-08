@@ -33,11 +33,12 @@ public class IslandService(AppDbContext context)
 
     public async Task<IslandDto> CreateAsync(CreateIslandDto dto)
     {
-        await EnsureUniqueNameAsync(dto.Name, excludingId: null);
+        await EnsureUniqueAsync(dto.Name, dto.Slug, excludingId: null);
 
         var island = new Island
         {
             Name = dto.Name,
+            Slug = dto.Slug,
             Description = dto.Description,
             CoordinateX = dto.CoordinateX,
             CoordinateY = dto.CoordinateY,
@@ -60,9 +61,10 @@ public class IslandService(AppDbContext context)
         var island = await context.Islands.FindAsync(id)
             ?? throw new NotFoundException($"Island {id} not found.");
 
-        await EnsureUniqueNameAsync(dto.Name, excludingId: id);
+        await EnsureUniqueAsync(dto.Name, dto.Slug, excludingId: id);
 
         island.Name = dto.Name;
+        island.Slug = dto.Slug;
         island.Description = dto.Description;
         island.CoordinateX = dto.CoordinateX;
         island.CoordinateY = dto.CoordinateY;
@@ -94,21 +96,26 @@ public class IslandService(AppDbContext context)
         await context.SaveChangesAsync();
     }
 
-    private async Task EnsureUniqueNameAsync(string name, int? excludingId)
+    // Name and Slug are both unique. Checked here so the caller gets a 409 with a
+    // readable message instead of a raw index violation from the database.
+    private async Task EnsureUniqueAsync(string name, string slug, int? excludingId)
     {
         var conflict = await context.Islands
             .Where(i => excludingId == null || i.Id != excludingId)
-            .AnyAsync(i => i.Name == name);
+            .Where(i => i.Name == name || i.Slug == slug)
+            .FirstOrDefaultAsync();
 
-        if (conflict)
+        if (conflict is not null)
         {
-            throw new ConflictException($"Another island already uses the name '{name}'.");
+            var field = conflict.Name == name ? $"name '{name}'" : $"slug '{slug}'";
+            throw new ConflictException($"Another island already uses the {field}.");
         }
     }
 
     private static IslandDto ToDto(Island i, string? locale = null) => new(
         i.Id,
         LocaleResolver.Resolve(i.Name, i.Translations, locale, t => t.Name),
+        i.Slug,
         LocaleResolver.Resolve(i.Description, i.Translations, locale, t => t.Description),
         i.CoordinateX, i.CoordinateY, i.CoordinateZ,
         i.RotationY, i.Scale, i.ModelUrl, i.ThumbnailUrl, i.IsActive);

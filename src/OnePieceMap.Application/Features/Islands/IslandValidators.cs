@@ -7,6 +7,9 @@ public class CreateIslandDtoValidator : AbstractValidator<CreateIslandDto>
     public CreateIslandDtoValidator()
     {
         RuleFor(x => x.Name).NotEmpty();
+        RuleFor(x => x.Slug).NotEmpty()
+            .Matches("^[a-z0-9]+(-[a-z0-9]+)*$")
+            .WithMessage("Slug must be lowercase words separated by single hyphens.");
         RuleFor(x => x.Description).NotEmpty();
         RuleFor(x => x.ModelUrl).NotEmpty();
         RuleFor(x => x.ThumbnailUrl).NotEmpty();
@@ -19,6 +22,9 @@ public class UpdateIslandDtoValidator : AbstractValidator<UpdateIslandDto>
     public UpdateIslandDtoValidator()
     {
         RuleFor(x => x.Name).NotEmpty();
+        RuleFor(x => x.Slug).NotEmpty()
+            .Matches("^[a-z0-9]+(-[a-z0-9]+)*$")
+            .WithMessage("Slug must be lowercase words separated by single hyphens.");
         RuleFor(x => x.Description).NotEmpty();
         RuleFor(x => x.ModelUrl).NotEmpty();
         RuleFor(x => x.ThumbnailUrl).NotEmpty();

@@ -4,6 +4,7 @@ public class Island
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;    // unique, en (idioma padrão)
+    public string Slug { get; set; } = null!;    // unique, estável e neutro de idioma — identifica a ilha na URL pública
     public string Description { get; set; } = null!; // en (idioma padrão)
     public Dictionary<string, IslandTranslation>? Translations { get; set; }
     public float CoordinateX { get; set; }

@@ -20,7 +20,7 @@ internal record SeedSaga(int Id, string Name, int Order, Dictionary<string, Saga
 internal record SeedArc(int Id, int SagaId, string Name, int Order, int GlobalOrder, Dictionary<string, ArcTranslation>? Translations = null);
 
 internal record SeedIsland(
-    int Id, string Name, string Description,
+    int Id, string Name, string Slug, string Description,
     float CoordinateX, float CoordinateY, float CoordinateZ,
     float RotationY, float Scale, string ModelUrl, string ThumbnailUrl, bool IsActive,
     Dictionary<string, IslandTranslation>? Translations = null);

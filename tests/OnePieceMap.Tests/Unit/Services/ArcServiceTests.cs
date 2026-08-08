@@ -22,7 +22,7 @@ public class ArcServiceTests
 
         var island = new Island
         {
-            Name = "Fuscia Village", Description = "...", ModelUrl = "/m.glb", ThumbnailUrl = "/t.png", IsActive = true
+            Name = "Fuscia Village", Slug = "fuscia-village", Description = "...", ModelUrl = "/m.glb", ThumbnailUrl = "/t.png", IsActive = true
         };
         context.Islands.Add(island);
         await context.SaveChangesAsync();

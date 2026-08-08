@@ -42,6 +42,7 @@ public class SeedRunner(AppDbContext context)
         var islands = data.Islands.ToDictionary(i => i.Id, i => new Island
         {
             Name = i.Name,
+            Slug = i.Slug,
             Description = i.Description,
             CoordinateX = i.CoordinateX,
             CoordinateY = i.CoordinateY,

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using OnePieceMap.Application.Common;
 using OnePieceMap.Application.Common.Exceptions;
 using OnePieceMap.Application.Features.CharacterVersions;
+using OnePieceMap.Domain.Entities;
 using OnePieceMap.Infrastructure.Data;
 
 namespace OnePieceMap.Application.Features.Wiki;
@@ -44,7 +45,7 @@ public class WikiService(AppDbContext context, CharacterVersionService character
             .Where(i => i.ArcIslands.Any())
             .Select(i => new
             {
-                i.Id, i.Name, i.Translations, i.ThumbnailUrl, i.ModelUrl,
+                i.Id, i.Slug, i.Name, i.Translations, i.ThumbnailUrl, i.ModelUrl,
                 i.CoordinateX, i.CoordinateY, i.CoordinateZ, i.RotationY, i.Scale,
                 FirstAppearanceGlobalOrder = i.ArcIslands.Min(ai => ai.Arc.GlobalOrder)
             })
@@ -52,18 +53,34 @@ public class WikiService(AppDbContext context, CharacterVersionService character
             .ToListAsync();
 
         return islands.Select(i => new WikiMapItemDto(
-            i.Id, LocaleResolver.Resolve(i.Name, i.Translations, locale, t => t.Name), i.ThumbnailUrl, i.ModelUrl,
+            i.Id, i.Slug, LocaleResolver.Resolve(i.Name, i.Translations, locale, t => t.Name), i.ThumbnailUrl, i.ModelUrl,
             new CoordinatesDto(i.CoordinateX, i.CoordinateY, i.CoordinateZ),
             i.RotationY, i.Scale, i.FirstAppearanceGlobalOrder));
     }
 
     // RN08 (arcId required — enforced by the controllers via a non-nullable query param).
-    // Shared by GET /islands/{id}/details and GET /wiki/islands/{id}/details, which are
-    // functionally identical (backend-planning.md §5.2).
+    // Used by GET /islands/{id}/details, where the caller already holds an id.
     public async Task<IslandDetailsDto> GetIslandDetailsAsync(int islandId, int arcId, string? locale = null)
     {
         var island = await context.Islands.FindAsync(islandId)
             ?? throw new NotFoundException($"Island {islandId} not found.");
+
+        return await BuildIslandDetailsAsync(island, arcId, locale);
+    }
+
+    // Slug variant for GET /wiki/islands/{slug}/details: the public routes are
+    // addressed by slug so URLs stay readable and stable, ids stay internal.
+    public async Task<IslandDetailsDto> GetIslandDetailsBySlugAsync(string slug, int arcId, string? locale = null)
+    {
+        var island = await context.Islands.FirstOrDefaultAsync(i => i.Slug == slug)
+            ?? throw new NotFoundException($"Island '{slug}' not found.");
+
+        return await BuildIslandDetailsAsync(island, arcId, locale);
+    }
+
+    private async Task<IslandDetailsDto> BuildIslandDetailsAsync(Island island, int arcId, string? locale)
+    {
+        var islandId = island.Id;
 
         await EnsureArcExistsAsync(arcId);
 

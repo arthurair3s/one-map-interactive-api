@@ -54,6 +54,7 @@
     {
       "id": 1,
       "name": "Fuscia Village",
+      "slug": "fuscia-village",
       "description": "A peaceful village on Dawn Island where Luffy grew up and where his journey as a pirate begins.",
       "coordinateX": 0,
       "coordinateY": 0,
@@ -73,6 +74,7 @@
     {
       "id": 2,
       "name": "Orange Town",
+      "slug": "orange-town",
       "description": "A coastal town terrorized by the crew of Buggy the Clown.",
       "coordinateX": 100,
       "coordinateY": 0,
@@ -92,6 +94,7 @@
     {
       "id": 3,
       "name": "Syrup Village",
+      "slug": "syrup-village",
       "description": "A coastal village, home to Usopp and Kaya, threatened by Kuro's crew.",
       "coordinateX": 200,
       "coordinateY": 0,
@@ -111,6 +114,7 @@
     {
       "id": 4,
       "name": "Baratie",
+      "slug": "baratie",
       "description": "A floating restaurant in the middle of the sea, run by chef Zeff.",
       "coordinateX": 300,
       "coordinateY": 0,
@@ -130,6 +134,7 @@
     {
       "id": 5,
       "name": "Conomi Islands",
+      "slug": "conomi-islands",
       "description": "An archipelago dominated by Arlong's fish-men, home to Nami.",
       "coordinateX": 400,
       "coordinateY": 0,
@@ -149,6 +154,7 @@
     {
       "id": 6,
       "name": "Loguetown",
+      "slug": "loguetown",
       "description": "The town of the beginning and the end, where Gold Roger was born and executed.",
       "coordinateX": 500,
       "coordinateY": 0,
