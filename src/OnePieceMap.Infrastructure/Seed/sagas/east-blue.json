@@ -21,7 +21,7 @@
     {
       "id": 2, "name": "Shells Town", "slug": "shells-town",
       "description": "A coastal town held hostage for three years by the Marines' corrupt 153rd Branch, ruled with an iron hand — and an iron axe — by Captain Morgan. Its skyline of cannon-studded watchtowers loomed over ordinary residents like Ririka, who kept her tavern open despite the fear, and her daughter Rika, who paid the price for one act of kindness: sneaking food to a swordsman Morgan's son had tied up and left to starve. That swordsman, Roronoa Zoro, and the boy who freed him, Luffy, are the reason the town's watchtowers now answer to someone else.",
-      "coordinateX": 15, "coordinateY": 0, "coordinateZ": 8,
+      "coordinateX": 180, "coordinateY": 0, "coordinateZ": 40,
       "rotationY": 0, "scale": 1,
       "modelUrl": "", "thumbnailUrl": "/thumbs/shells-town.png",
       "isActive": true,
