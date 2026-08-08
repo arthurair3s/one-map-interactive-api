@@ -37,6 +37,15 @@ Once running:
 - API base URL: `http://localhost:5000/api/v1`
 - Scalar API reference (interactive docs): `http://localhost:5000/scalar/v1`
 
+## Production
+
+Deployed on [Railway](https://railway.app) (API + Postgres), auto-deploying from `main`:
+
+- API base URL: `https://api-production-15b3.up.railway.app/api/v1`
+- Scalar API reference: `https://api-production-15b3.up.railway.app/scalar/v1`
+
+Runs with `ASPNETCORE_ENVIRONMENT=Development` in production too — this is what triggers the automatic migrate-on-boot + reseed-from-`seed-data.json` behavior described above, which currently doubles as the only content-update mechanism (no admin panel — see `project_overview.md` §10). A side effect: the database is truncated and reloaded from the seed file on every deploy/restart, and Scalar stays publicly reachable. Revisit this once there's a real reason to (an admin panel, or write endpoints gaining auth).
+
 Stop everything with:
 
 ```bash
