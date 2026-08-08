@@ -11,6 +11,7 @@ internal record SeedData(
     List<SeedIsland> Islands,
     List<SeedArcIsland> ArcIslands,
     List<SeedCharacter> Characters,
+    List<SeedFaction> Factions,
     List<SeedCharacterVersion> CharacterVersions,
     List<SeedEvent> Events,
     List<SeedEventParticipant> EventParticipants);
@@ -29,9 +30,12 @@ internal record SeedArcIsland(int Id, int ArcId, int IslandId, int Order);
 
 internal record SeedCharacter(int Id, string Name, string Slug);
 
+internal record SeedFaction(
+    int Id, string Name, string Slug, Dictionary<string, FactionTranslation>? Translations = null);
+
 internal record SeedCharacterVersion(
     int Id, int CharacterId, int ArcId, string Alias, string Epithet,
-    long? Bounty, CharacterStatus Status, Faction Faction, string ImageUrl, string Description,
+    long? Bounty, CharacterStatus Status, int FactionId, string ImageUrl, string Description,
     Dictionary<string, CharacterVersionTranslation>? Translations = null);
 
 internal record SeedEvent(

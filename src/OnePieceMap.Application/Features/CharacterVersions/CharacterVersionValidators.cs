@@ -11,7 +11,7 @@ public class CreateCharacterVersionDtoValidator : AbstractValidator<CreateCharac
         RuleFor(x => x.Alias).NotEmpty();
         RuleFor(x => x.Epithet).NotNull();
         RuleFor(x => x.Status).NotEmpty().IsEnumName(typeof(CharacterStatus), caseSensitive: false);
-        RuleFor(x => x.Faction).NotEmpty().IsEnumName(typeof(Faction), caseSensitive: false);
+        RuleFor(x => x.FactionId).GreaterThan(0);
         RuleFor(x => x.ImageUrl).NotEmpty();
         RuleFor(x => x.Description).NotNull();
         RuleFor(x => x.Bounty).GreaterThanOrEqualTo(0).When(x => x.Bounty.HasValue);
@@ -26,7 +26,7 @@ public class UpdateCharacterVersionDtoValidator : AbstractValidator<UpdateCharac
         RuleFor(x => x.Alias).NotEmpty();
         RuleFor(x => x.Epithet).NotNull();
         RuleFor(x => x.Status).NotEmpty().IsEnumName(typeof(CharacterStatus), caseSensitive: false);
-        RuleFor(x => x.Faction).NotEmpty().IsEnumName(typeof(Faction), caseSensitive: false);
+        RuleFor(x => x.FactionId).GreaterThan(0);
         RuleFor(x => x.ImageUrl).NotEmpty();
         RuleFor(x => x.Description).NotNull();
         RuleFor(x => x.Bounty).GreaterThanOrEqualTo(0).When(x => x.Bounty.HasValue);

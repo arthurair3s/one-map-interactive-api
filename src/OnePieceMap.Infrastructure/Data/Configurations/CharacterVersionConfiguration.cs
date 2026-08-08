@@ -20,5 +20,10 @@ public class CharacterVersionConfiguration : IEntityTypeConfiguration<CharacterV
             .WithMany(a => a.CharacterVersions)
             .HasForeignKey(cv => cv.ArcId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(cv => cv.Faction)
+            .WithMany(f => f.CharacterVersions)
+            .HasForeignKey(cv => cv.FactionId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

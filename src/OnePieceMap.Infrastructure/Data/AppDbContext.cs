@@ -10,6 +10,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Island> Islands => Set<Island>();
     public DbSet<ArcIsland> ArcIslands => Set<ArcIsland>();
     public DbSet<Character> Characters => Set<Character>();
+    public DbSet<Faction> Factions => Set<Faction>();
     public DbSet<CharacterVersion> CharacterVersions => Set<CharacterVersion>();
     public DbSet<Event> Events => Set<Event>();
     public DbSet<EventParticipant> EventParticipants => Set<EventParticipant>();

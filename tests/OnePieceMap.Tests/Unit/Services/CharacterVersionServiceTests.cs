@@ -25,6 +25,8 @@ public class CharacterVersionServiceTests
 
         var luffy = new Character { Name = "Monkey D. Luffy", Slug = "luffy" };
         context.Characters.Add(luffy);
+        var strawHats = new Faction { Name = "Straw Hat Pirates", Slug = "straw-hat-pirates" };
+        context.Factions.Add(strawHats);
         await context.SaveChangesAsync();
 
         // Luffy only gets a new relevant version starting at Romance Dawn (GlobalOrder 1)
@@ -33,12 +35,12 @@ public class CharacterVersionServiceTests
             new CharacterVersion
             {
                 CharacterId = luffy.Id, ArcId = romanceDawn.Id, Alias = "Luffy", Epithet = "Straw Hat",
-                Status = CharacterStatus.Alive, Faction = Faction.StrawHatPirates, ImageUrl = "/luffy-1.png", Description = "..."
+                Status = CharacterStatus.Alive, Faction = strawHats, ImageUrl = "/luffy-1.png", Description = "..."
             },
             new CharacterVersion
             {
                 CharacterId = luffy.Id, ArcId = syrupVillage.Id, Alias = "Luffy", Epithet = "Straw Hat Luffy",
-                Status = CharacterStatus.Alive, Faction = Faction.StrawHatPirates, ImageUrl = "/luffy-2.png", Description = "..."
+                Status = CharacterStatus.Alive, Faction = strawHats, ImageUrl = "/luffy-2.png", Description = "..."
             });
         await context.SaveChangesAsync();
 
@@ -94,13 +96,15 @@ public class CharacterVersionServiceTests
 
         var nami = new Character { Name = "Nami", Slug = "nami" };
         context.Characters.Add(nami);
+        var strawHats = new Faction { Name = "Straw Hat Pirates", Slug = "straw-hat-pirates" };
+        context.Factions.Add(strawHats);
         await context.SaveChangesAsync();
 
         // Nami's first relevant version only appears at Arlong Park (GlobalOrder 5).
         context.CharacterVersions.Add(new CharacterVersion
         {
             CharacterId = nami.Id, ArcId = arlongPark.Id, Alias = "Nami", Epithet = "Cat Burglar",
-            Status = CharacterStatus.Alive, Faction = Faction.StrawHatPirates, ImageUrl = "/nami-1.png", Description = "..."
+            Status = CharacterStatus.Alive, Faction = strawHats, ImageUrl = "/nami-1.png", Description = "..."
         });
         await context.SaveChangesAsync();
 

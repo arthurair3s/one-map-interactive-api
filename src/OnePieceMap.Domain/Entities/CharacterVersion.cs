@@ -13,7 +13,8 @@ public class CharacterVersion
     public string Epithet { get; set; } = null!;
     public long? Bounty { get; set; }
     public CharacterStatus Status { get; set; }
-    public Faction Faction { get; set; }
+    public int FactionId { get; set; }
+    public Faction Faction { get; set; } = null!;
     public string ImageUrl { get; set; } = null!;
     public string Description { get; set; } = null!; // en (idioma padrão)
     public Dictionary<string, CharacterVersionTranslation>? Translations { get; set; }

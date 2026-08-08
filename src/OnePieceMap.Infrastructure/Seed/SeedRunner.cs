@@ -70,6 +70,15 @@ public class SeedRunner(AppDbContext context)
         context.Characters.AddRange(characters.Values);
         await context.SaveChangesAsync();
 
+        var factions = data.Factions.ToDictionary(f => f.Id, f => new Faction
+        {
+            Name = f.Name,
+            Slug = f.Slug,
+            Translations = f.Translations
+        });
+        context.Factions.AddRange(factions.Values);
+        await context.SaveChangesAsync();
+
         var characterVersions = data.CharacterVersions.ToDictionary(cv => cv.Id, cv => new CharacterVersion
         {
             CharacterId = characters[cv.CharacterId].Id,
@@ -78,7 +87,7 @@ public class SeedRunner(AppDbContext context)
             Epithet = cv.Epithet,
             Bounty = cv.Bounty,
             Status = cv.Status,
-            Faction = cv.Faction,
+            FactionId = factions[cv.FactionId].Id,
             ImageUrl = cv.ImageUrl,
             Description = cv.Description,
             Translations = cv.Translations
@@ -113,7 +122,7 @@ public class SeedRunner(AppDbContext context)
     {
         await context.Database.ExecuteSqlRawAsync(
             """
-            TRUNCATE TABLE "EventParticipants", "Events", "CharacterVersions", "Characters",
+            TRUNCATE TABLE "EventParticipants", "Events", "CharacterVersions", "Characters", "Factions",
                 "ArcIslands", "Islands", "Arcs", "Sagas"
             RESTART IDENTITY CASCADE
             """);

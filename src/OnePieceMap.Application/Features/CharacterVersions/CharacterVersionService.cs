@@ -14,6 +14,7 @@ public class CharacterVersionService(AppDbContext context)
         await EnsureCharacterExistsAsync(characterId);
 
         var versions = await context.CharacterVersions
+            .Include(cv => cv.Faction)
             .Where(cv => cv.CharacterId == characterId)
             .OrderBy(cv => cv.Arc.GlobalOrder)
             .ToListAsync();
@@ -27,6 +28,7 @@ public class CharacterVersionService(AppDbContext context)
         await EnsureCharacterExistsAsync(characterId);
         await EnsureArcExistsAsync(dto.ArcId);
         await EnsureUniqueAsync(characterId, dto.ArcId, excludingId: null);
+        var faction = await GetFactionAsync(dto.FactionId);
 
         var version = new CharacterVersion
         {
@@ -36,7 +38,7 @@ public class CharacterVersionService(AppDbContext context)
             Epithet = dto.Epithet,
             Bounty = dto.Bounty,
             Status = ParseStatus(dto.Status),
-            Faction = ParseFaction(dto.Faction),
+            Faction = faction,
             ImageUrl = dto.ImageUrl,
             Description = dto.Description,
             Translations = dto.Translations
@@ -54,13 +56,14 @@ public class CharacterVersionService(AppDbContext context)
 
         await EnsureArcExistsAsync(dto.ArcId);
         await EnsureUniqueAsync(version.CharacterId, dto.ArcId, excludingId: id);
+        var faction = await GetFactionAsync(dto.FactionId);
 
         version.ArcId = dto.ArcId;
         version.Alias = dto.Alias;
         version.Epithet = dto.Epithet;
         version.Bounty = dto.Bounty;
         version.Status = ParseStatus(dto.Status);
-        version.Faction = ParseFaction(dto.Faction);
+        version.Faction = faction;
         version.ImageUrl = dto.ImageUrl;
         version.Description = dto.Description;
         version.Translations = dto.Translations;
@@ -77,6 +80,7 @@ public class CharacterVersionService(AppDbContext context)
             ?? throw new NotFoundException($"Arc {activeArcId} not found.");
 
         var version = await context.CharacterVersions
+            .Include(cv => cv.Faction)
             .Where(cv => cv.CharacterId == characterId && cv.Arc.GlobalOrder <= activeArc.GlobalOrder)
             .OrderByDescending(cv => cv.Arc.GlobalOrder)
             .FirstOrDefaultAsync();
@@ -130,14 +134,18 @@ public class CharacterVersionService(AppDbContext context)
         }
     }
 
-    private static CharacterStatus ParseStatus(string status) => Enum.Parse<CharacterStatus>(status, ignoreCase: true);
+    private async Task<Faction> GetFactionAsync(int factionId) =>
+        await context.Factions.FindAsync(factionId)
+            ?? throw new NotFoundException($"Faction {factionId} not found.");
 
-    private static Faction ParseFaction(string faction) => Enum.Parse<Faction>(faction, ignoreCase: true);
+    private static CharacterStatus ParseStatus(string status) => Enum.Parse<CharacterStatus>(status, ignoreCase: true);
 
     private static CharacterVersionDto ToDto(CharacterVersion cv, string? locale = null) => new(
         cv.Id, cv.CharacterId, cv.ArcId,
         LocaleResolver.Resolve(cv.Alias, cv.Translations, locale, t => t.Alias),
         LocaleResolver.Resolve(cv.Epithet, cv.Translations, locale, t => t.Epithet),
-        cv.Bounty, cv.Status.ToString(), cv.Faction.ToString(), cv.ImageUrl,
+        cv.Bounty, cv.Status.ToString(),
+        LocaleResolver.Resolve(cv.Faction.Name, cv.Faction.Translations, locale, t => t.Name),
+        cv.ImageUrl,
         LocaleResolver.Resolve(cv.Description, cv.Translations, locale, t => t.Description));
 }

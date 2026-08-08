@@ -257,6 +257,68 @@
       "slug": "kuro"
     }
   ],
+  "factions": [
+    {
+      "id": 1,
+      "name": "Straw Hat Pirates",
+      "slug": "straw-hat-pirates",
+      "translations": {
+        "pt": {
+          "name": "Piratas do Chapéu de Palha"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Buggy Pirates",
+      "slug": "buggy-pirates",
+      "translations": {
+        "pt": {
+          "name": "Piratas do Buggy"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "Arlong Pirates",
+      "slug": "arlong-pirates",
+      "translations": {
+        "pt": {
+          "name": "Piratas do Arlong"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "Marine Forces",
+      "slug": "marine-forces",
+      "translations": {
+        "pt": {
+          "name": "Forças da Marinha"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Unaffiliated",
+      "slug": "unaffiliated",
+      "translations": {
+        "pt": {
+          "name": "Sem afiliação"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "Black Cat Pirates",
+      "slug": "black-cat-pirates",
+      "translations": {
+        "pt": {
+          "name": "Piratas do Gato Negro"
+        }
+      }
+    }
+  ],
   "characterVersions": [
     {
       "id": 1,
@@ -266,7 +328,7 @@
       "epithet": "Straw Hat",
       "bounty": null,
       "status": "Alive",
-      "faction": "StrawHatPirates",
+      "factionId": 1,
       "imageUrl": "/portraits/luffy-1.png",
       "description": "A rubber boy determined to become the Pirate King.",
       "translations": {
@@ -285,7 +347,7 @@
       "epithet": "Pirate Hunter",
       "bounty": null,
       "status": "Alive",
-      "faction": "StrawHatPirates",
+      "factionId": 1,
       "imageUrl": "/portraits/zoro-1.png",
       "description": "A former pirate hunter recruited by Luffy, who dreams of becoming the world's greatest swordsman.",
       "translations": {
@@ -304,7 +366,7 @@
       "epithet": "the Clown",
       "bounty": 15000000,
       "status": "Alive",
-      "faction": "BuggyPirates",
+      "factionId": 2,
       "imageUrl": "/portraits/buggy-1.png",
       "description": "A pirate who ate the Bara Bara no Mi, able to split his own body into pieces.",
       "translations": {
@@ -323,7 +385,7 @@
       "epithet": "Cat Burglar",
       "bounty": null,
       "status": "Alive",
-      "faction": "Unaffiliated",
+      "factionId": 5,
       "imageUrl": "/portraits/nami-1.png",
       "description": "A talented thief and navigator, not yet officially part of the crew.",
       "translations": {
@@ -342,7 +404,7 @@
       "epithet": "",
       "bounty": null,
       "status": "Alive",
-      "faction": "StrawHatPirates",
+      "factionId": 1,
       "imageUrl": "/portraits/usopp-1.png",
       "description": "Storyteller and elite sniper from Syrup Village.",
       "translations": {
@@ -361,7 +423,7 @@
       "epithet": "Black Leg",
       "bounty": null,
       "status": "Alive",
-      "faction": "StrawHatPirates",
+      "factionId": 1,
       "imageUrl": "/portraits/sanji-1.png",
       "description": "Chef at the Baratie, fights using only his legs so as not to hurt his hands.",
       "translations": {
@@ -380,7 +442,7 @@
       "epithet": "Saw Tooth",
       "bounty": 20000000,
       "status": "Alive",
-      "faction": "ArlongPirates",
+      "factionId": 3,
       "imageUrl": "/portraits/arlong-1.png",
       "description": "A fish-man who rules the Conomi Islands and enslaves its inhabitants.",
       "translations": {
@@ -399,7 +461,7 @@
       "epithet": "Cat Burglar",
       "bounty": null,
       "status": "Alive",
-      "faction": "StrawHatPirates",
+      "factionId": 1,
       "imageUrl": "/portraits/nami-2.png",
       "description": "Free from her debt to Arlong, now the official navigator of the Straw Hats.",
       "translations": {
@@ -418,7 +480,7 @@
       "epithet": "",
       "bounty": null,
       "status": "Alive",
-      "faction": "Unaffiliated",
+      "factionId": 5,
       "imageUrl": "/portraits/kaya-1.png",
       "description": "A wealthy young woman from Syrup Village who inherited her family's fortune after her parents' deaths. Studying to become a doctor, she is Usopp's closest friend.",
       "translations": {
@@ -437,7 +499,7 @@
       "epithet": "Kuro of a Hundred Plans",
       "bounty": 16000000,
       "status": "Unknown",
-      "faction": "BlackCatPirates",
+      "factionId": 6,
       "imageUrl": "/portraits/kuro-1.png",
       "description": "A former pirate captain who faked his own execution years ago and has since posed as the butler Klahadore, patiently working his way into Kaya's trust to seize her inheritance.",
       "translations": {
