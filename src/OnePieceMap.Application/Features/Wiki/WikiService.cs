@@ -82,30 +82,49 @@ public class WikiService(AppDbContext context, CharacterVersionService character
     {
         var islandId = island.Id;
 
-        await EnsureArcExistsAsync(arcId);
+        var activeArc = await context.Arcs.FirstOrDefaultAsync(a => a.Id == arcId)
+            ?? throw new NotFoundException($"Arc {arcId} not found.");
 
         var islandName = LocaleResolver.Resolve(island.Name, island.Translations, locale, t => t.Name);
         var islandDescription = LocaleResolver.Resolve(island.Description, island.Translations, locale, t => t.Description);
 
-        var arcIsland = await context.ArcIslands
-            .FirstOrDefaultAsync(ai => ai.IslandId == islandId && ai.ArcId == arcId);
+        // RN09: every visit the journey has already reached, not just the arc that happens to
+        // be active. An island passed at arc 3 keeps showing what happened there once the reader
+        // is at arc 6 — only later visits stay hidden. GlobalOrder, never Order (§8).
+        var visits = await context.ArcIslands
+            .Include(ai => ai.Arc)
+            .Where(ai => ai.IslandId == islandId && ai.Arc.GlobalOrder <= activeArc.GlobalOrder)
+            .ToListAsync();
 
-        if (arcIsland is null)
+        if (visits.Count == 0)
         {
             return new IslandDetailsDto(island.Id, islandName, islandDescription, [], []);
         }
 
+        var visitById = visits.ToDictionary(v => v.Id);
+        var visitIds = visitById.Keys.ToList();
+
         var events = await context.Events
-            .Where(e => e.ArcIslandId == arcIsland.Id)
-            .OrderBy(e => e.Order)
+            .Where(e => visitIds.Contains(e.ArcIslandId))
             .ToListAsync();
 
+        // Chronological across visits: the arc's absolute position first, then the island's
+        // place in that arc's route, then the event's own order within the visit.
         var eventSummaries = events
-            .Select(e => new EventSummaryDto(
-                e.Id,
-                LocaleResolver.Resolve(e.Title, e.Translations, locale, t => t.Title),
-                LocaleResolver.Resolve(e.Description, e.Translations, locale, t => t.Description),
-                e.Type.ToString(), e.Order))
+            .OrderBy(e => visitById[e.ArcIslandId].Arc.GlobalOrder)
+            .ThenBy(e => visitById[e.ArcIslandId].Order)
+            .ThenBy(e => e.Order)
+            .Select(e =>
+            {
+                var arc = visitById[e.ArcIslandId].Arc;
+
+                return new EventSummaryDto(
+                    e.Id,
+                    LocaleResolver.Resolve(e.Title, e.Translations, locale, t => t.Title),
+                    LocaleResolver.Resolve(e.Description, e.Translations, locale, t => t.Description),
+                    e.Type.ToString(), e.Order,
+                    arc.Id, LocaleResolver.Resolve(arc.Name, arc.Translations, locale, t => t.Name), arc.GlobalOrder);
+            })
             .ToList();
 
         var eventIds = events.Select(e => e.Id).ToList();
