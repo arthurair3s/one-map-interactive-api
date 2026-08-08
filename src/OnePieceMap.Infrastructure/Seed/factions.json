@@ -1,0 +1,64 @@
+{
+  "factions": [
+    {
+      "id": 1,
+      "name": "Straw Hat Pirates",
+      "slug": "straw-hat-pirates",
+      "translations": {
+        "pt": {
+          "name": "Piratas do Chapéu de Palha"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Buggy Pirates",
+      "slug": "buggy-pirates",
+      "translations": {
+        "pt": {
+          "name": "Piratas do Buggy"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "Arlong Pirates",
+      "slug": "arlong-pirates",
+      "translations": {
+        "pt": {
+          "name": "Piratas do Arlong"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "Marine Forces",
+      "slug": "marine-forces",
+      "translations": {
+        "pt": {
+          "name": "Forças da Marinha"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Unaffiliated",
+      "slug": "unaffiliated",
+      "translations": {
+        "pt": {
+          "name": "Sem afiliação"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "Black Cat Pirates",
+      "slug": "black-cat-pirates",
+      "translations": {
+        "pt": {
+          "name": "Piratas do Gato Negro"
+        }
+      }
+    }
+  ]
+}

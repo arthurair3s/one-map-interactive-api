@@ -6,8 +6,9 @@ using OnePieceMap.Infrastructure.Data;
 
 namespace OnePieceMap.Infrastructure.Seed;
 
-// Idempotent by "clear and reinsert": every run wipes the seeded tables and
-// reloads them from seed-data.json, so re-running never duplicates rows.
+// Idempotent by "clear and reinsert": every run wipes the seeded tables and reloads them
+// from Seed/characters.json + Seed/factions.json (global rosters) + Seed/sagas/*.json (one
+// saga's content per file), so re-running never duplicates rows.
 public class SeedRunner(AppDbContext context)
 {
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -16,21 +17,57 @@ public class SeedRunner(AppDbContext context)
         Converters = { new JsonStringEnumConverter() }
     };
 
-    public async Task RunAsync(string seedFilePath)
+    public async Task RunAsync(string seedDirectory)
     {
-        var json = await File.ReadAllTextAsync(seedFilePath);
-        var data = JsonSerializer.Deserialize<SeedData>(json, JsonOptions)
-            ?? throw new InvalidOperationException($"Could not parse seed file '{seedFilePath}'.");
+        var characterRoster = await ReadAsync<SeedCharacterRoster>(Path.Combine(seedDirectory, "characters.json"));
+        var factionRoster = await ReadAsync<SeedFactionRoster>(Path.Combine(seedDirectory, "factions.json"));
+
+        var sagaFiles = new List<SeedSagaFile>();
+        foreach (var path in Directory.GetFiles(Path.Combine(seedDirectory, "sagas"), "*.json"))
+        {
+            sagaFiles.Add(await ReadAsync<SeedSagaFile>(path));
+        }
+
+        // Directory.GetFiles doesn't guarantee any particular order — chronology comes
+        // from each saga's own Order field, same field the database enforces as unique.
+        sagaFiles = [.. sagaFiles.OrderBy(f => f.Saga.Order)];
 
         await ClearAsync();
 
-        var sagas = data.Sagas.ToDictionary(s => s.Id, s => new Saga { Name = s.Name, Order = s.Order, Translations = s.Translations });
-        context.Sagas.AddRange(sagas.Values);
+        // Characters and Factions are global: loaded once, referenced by every saga file
+        // below. A recurring character (Luffy) or faction (Straw Hat Pirates) lives here
+        // exactly once instead of once per saga.
+        var characters = characterRoster.Characters.ToDictionary(c => c.Id, c => new Character { Name = c.Name, Slug = c.Slug });
+        context.Characters.AddRange(characters.Values);
+        await context.SaveChangesAsync();
+
+        var factions = factionRoster.Factions.ToDictionary(f => f.Id, f => new Faction
+        {
+            Name = f.Name,
+            Slug = f.Slug,
+            Translations = f.Translations
+        });
+        context.Factions.AddRange(factions.Values);
+        await context.SaveChangesAsync();
+
+        foreach (var data in sagaFiles)
+        {
+            await SeedSagaAsync(data, characters, factions);
+        }
+    }
+
+    // Everything below is intra-file: an Arc's CharacterVersion, an Island's ArcIsland, an
+    // Event's ArcIsland all reference ids local to THIS saga's file — only CharacterId and
+    // FactionId reach into the global rosters loaded once in RunAsync.
+    private async Task SeedSagaAsync(SeedSagaFile data, Dictionary<int, Character> characters, Dictionary<int, Faction> factions)
+    {
+        var saga = new Saga { Name = data.Saga.Name, Order = data.Saga.Order, Translations = data.Saga.Translations };
+        context.Sagas.Add(saga);
         await context.SaveChangesAsync();
 
         var arcs = data.Arcs.ToDictionary(a => a.Id, a => new Arc
         {
-            SagaId = sagas[a.SagaId].Id,
+            SagaId = saga.Id,
             Name = a.Name,
             Order = a.Order,
             GlobalOrder = a.GlobalOrder,
@@ -64,19 +101,6 @@ public class SeedRunner(AppDbContext context)
             Order = ai.Order
         });
         context.ArcIslands.AddRange(arcIslands.Values);
-        await context.SaveChangesAsync();
-
-        var characters = data.Characters.ToDictionary(c => c.Id, c => new Character { Name = c.Name, Slug = c.Slug });
-        context.Characters.AddRange(characters.Values);
-        await context.SaveChangesAsync();
-
-        var factions = data.Factions.ToDictionary(f => f.Id, f => new Faction
-        {
-            Name = f.Name,
-            Slug = f.Slug,
-            Translations = f.Translations
-        });
-        context.Factions.AddRange(factions.Values);
         await context.SaveChangesAsync();
 
         var characterVersions = data.CharacterVersions.ToDictionary(cv => cv.Id, cv => new CharacterVersion
@@ -114,6 +138,13 @@ public class SeedRunner(AppDbContext context)
         });
         context.EventParticipants.AddRange(eventParticipants);
         await context.SaveChangesAsync();
+    }
+
+    private static async Task<T> ReadAsync<T>(string path)
+    {
+        var json = await File.ReadAllTextAsync(path);
+        return JsonSerializer.Deserialize<T>(json, JsonOptions)
+            ?? throw new InvalidOperationException($"Could not parse seed file '{path}'.");
     }
 
     // TRUNCATE ... RESTART IDENTITY resets every table's id sequence back to 1, so re-seeding

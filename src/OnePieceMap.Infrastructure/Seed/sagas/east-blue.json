@@ -1,11 +1,9 @@
 {
-  "sagas": [
-    {
-      "id": 1,
-      "name": "East Blue",
-      "order": 1
-    }
-  ],
+  "saga": {
+    "id": 1,
+    "name": "East Blue",
+    "order": 1
+  },
   "arcs": [
     {
       "id": 1,
@@ -208,115 +206,6 @@
       "arcId": 6,
       "islandId": 6,
       "order": 1
-    }
-  ],
-  "characters": [
-    {
-      "id": 1,
-      "name": "Monkey D. Luffy",
-      "slug": "luffy"
-    },
-    {
-      "id": 2,
-      "name": "Roronoa Zoro",
-      "slug": "zoro"
-    },
-    {
-      "id": 3,
-      "name": "Nami",
-      "slug": "nami"
-    },
-    {
-      "id": 4,
-      "name": "Usopp",
-      "slug": "usopp"
-    },
-    {
-      "id": 5,
-      "name": "Sanji",
-      "slug": "sanji"
-    },
-    {
-      "id": 6,
-      "name": "Buggy",
-      "slug": "buggy"
-    },
-    {
-      "id": 7,
-      "name": "Arlong",
-      "slug": "arlong"
-    },
-    {
-      "id": 8,
-      "name": "Kaya",
-      "slug": "kaya"
-    },
-    {
-      "id": 9,
-      "name": "Kuro",
-      "slug": "kuro"
-    }
-  ],
-  "factions": [
-    {
-      "id": 1,
-      "name": "Straw Hat Pirates",
-      "slug": "straw-hat-pirates",
-      "translations": {
-        "pt": {
-          "name": "Piratas do Chapéu de Palha"
-        }
-      }
-    },
-    {
-      "id": 2,
-      "name": "Buggy Pirates",
-      "slug": "buggy-pirates",
-      "translations": {
-        "pt": {
-          "name": "Piratas do Buggy"
-        }
-      }
-    },
-    {
-      "id": 3,
-      "name": "Arlong Pirates",
-      "slug": "arlong-pirates",
-      "translations": {
-        "pt": {
-          "name": "Piratas do Arlong"
-        }
-      }
-    },
-    {
-      "id": 4,
-      "name": "Marine Forces",
-      "slug": "marine-forces",
-      "translations": {
-        "pt": {
-          "name": "Forças da Marinha"
-        }
-      }
-    },
-    {
-      "id": 5,
-      "name": "Unaffiliated",
-      "slug": "unaffiliated",
-      "translations": {
-        "pt": {
-          "name": "Sem afiliação"
-        }
-      }
-    },
-    {
-      "id": 6,
-      "name": "Black Cat Pirates",
-      "slug": "black-cat-pirates",
-      "translations": {
-        "pt": {
-          "name": "Piratas do Gato Negro"
-        }
-      }
     }
   ],
   "characterVersions": [

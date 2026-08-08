@@ -68,8 +68,8 @@ if (app.Environment.IsDevelopment())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await db.Database.MigrateAsync();
 
-    var seedFilePath = Path.Combine(AppContext.BaseDirectory, "OnePieceMap.Infrastructure", "Seed", "seed-data.json");
-    await new SeedRunner(db).RunAsync(seedFilePath);
+    var seedDirectory = Path.Combine(AppContext.BaseDirectory, "OnePieceMap.Infrastructure", "Seed");
+    await new SeedRunner(db).RunAsync(seedDirectory);
 }
 
 app.UseExceptionHandler();

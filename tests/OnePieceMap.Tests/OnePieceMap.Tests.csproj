@@ -27,10 +27,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Program.cs resolves the seed file relative to AppContext.BaseDirectory, which under
+    <!-- Program.cs resolves the seed directory relative to AppContext.BaseDirectory, which under
          `dotnet test` is this project's own output dir, not the API's — so it needs its own copy. -->
-    <None Include="..\..\src\OnePieceMap.Infrastructure\Seed\seed-data.json"
-          Link="OnePieceMap.Infrastructure\Seed\seed-data.json"
+    <None Include="..\..\src\OnePieceMap.Infrastructure\Seed\characters.json"
+          Link="OnePieceMap.Infrastructure\Seed\characters.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\src\OnePieceMap.Infrastructure\Seed\factions.json"
+          Link="OnePieceMap.Infrastructure\Seed\factions.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\src\OnePieceMap.Infrastructure\Seed\sagas\**\*.json"
+          Link="OnePieceMap.Infrastructure\Seed\sagas\%(RecursiveDir)%(Filename)%(Extension)"
           CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 

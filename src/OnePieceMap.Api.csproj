@@ -23,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="OnePieceMap.Infrastructure\Seed\seed-data.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="OnePieceMap.Infrastructure\Seed\characters.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="OnePieceMap.Infrastructure\Seed\factions.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="OnePieceMap.Infrastructure\Seed\sagas\**\*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
