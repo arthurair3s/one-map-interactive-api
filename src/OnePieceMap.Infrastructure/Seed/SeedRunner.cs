@@ -22,10 +22,18 @@ public class SeedRunner(AppDbContext context)
         var characterRoster = await ReadAsync<SeedCharacterRoster>(Path.Combine(seedDirectory, "characters.json"));
         var factionRoster = await ReadAsync<SeedFactionRoster>(Path.Combine(seedDirectory, "factions.json"));
 
+        // No sagas yet is a legitimate state (a freshly reset seed, or before the first
+        // saga file is added) — MSBuild only copies files, so a sagas/ folder with zero
+        // matching files never even reaches the build output. Directory.GetFiles would
+        // throw DirectoryNotFoundException on that, so check existence first.
+        var sagasDirectory = Path.Combine(seedDirectory, "sagas");
         var sagaFiles = new List<SeedSagaFile>();
-        foreach (var path in Directory.GetFiles(Path.Combine(seedDirectory, "sagas"), "*.json"))
+        if (Directory.Exists(sagasDirectory))
         {
-            sagaFiles.Add(await ReadAsync<SeedSagaFile>(path));
+            foreach (var path in Directory.GetFiles(sagasDirectory, "*.json"))
+            {
+                sagaFiles.Add(await ReadAsync<SeedSagaFile>(path));
+            }
         }
 
         // Directory.GetFiles doesn't guarantee any particular order — chronology comes
