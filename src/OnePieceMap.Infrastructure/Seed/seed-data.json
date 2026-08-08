@@ -245,6 +245,16 @@
       "id": 7,
       "name": "Arlong",
       "slug": "arlong"
+    },
+    {
+      "id": 8,
+      "name": "Kaya",
+      "slug": "kaya"
+    },
+    {
+      "id": 9,
+      "name": "Kuro",
+      "slug": "kuro"
     }
   ],
   "characterVersions": [
@@ -399,6 +409,44 @@
           "description": "Livre da dívida com Arlong, agora navegadora oficial dos Chapéus de Palha."
         }
       }
+    },
+    {
+      "id": 9,
+      "characterId": 8,
+      "arcId": 3,
+      "alias": "Kaya",
+      "epithet": "",
+      "bounty": null,
+      "status": "Alive",
+      "faction": "Unaffiliated",
+      "imageUrl": "/portraits/kaya-1.png",
+      "description": "A wealthy young woman from Syrup Village who inherited her family's fortune after her parents' deaths. Studying to become a doctor, she is Usopp's closest friend.",
+      "translations": {
+        "pt": {
+          "alias": "Kaya",
+          "epithet": "",
+          "description": "Jovem rica de Syrup Village que herdou a fortuna da família após a morte dos pais. Estuda para se tornar médica e é a melhor amiga de Usopp."
+        }
+      }
+    },
+    {
+      "id": 10,
+      "characterId": 9,
+      "arcId": 3,
+      "alias": "Kuro",
+      "epithet": "Kuro of a Hundred Plans",
+      "bounty": 16000000,
+      "status": "Unknown",
+      "faction": "BlackCatPirates",
+      "imageUrl": "/portraits/kuro-1.png",
+      "description": "A former pirate captain who faked his own execution years ago and has since posed as the butler Klahadore, patiently working his way into Kaya's trust to seize her inheritance.",
+      "translations": {
+        "pt": {
+          "alias": "Kuro",
+          "epithet": "Kuro dos Cem Planos",
+          "description": "Ex-capitão pirata que forjou a própria execução anos atrás e desde então se disfarça como o mordomo Klahadore, conquistando aos poucos a confiança de Kaya para se apoderar de sua herança."
+        }
+      }
     }
   ],
   "events": [
@@ -445,12 +493,26 @@
       }
     },
     {
+      "id": 10,
+      "arcIslandId": 3,
+      "title": "Battle against Captain Kuro",
+      "description": "Luffy and Usopp expose the butler Klahadore as the pirate captain Kuro and defeat him and his crew, ending the plot against Kaya's life.",
+      "type": "Combat",
+      "order": 1,
+      "translations": {
+        "pt": {
+          "title": "Batalha contra o Capitão Kuro",
+          "description": "Luffy e Usopp expõem o mordomo Klahadore como o pirata Kuro e o derrotam junto de seu bando, encerrando o plano contra a vida de Kaya."
+        }
+      }
+    },
+    {
       "id": 4,
       "arcIslandId": 3,
       "title": "Usopp joins the crew",
       "description": "After the confrontation with Kuro's crew, Usopp boards the Going Merry.",
       "type": "Lore",
-      "order": 1,
+      "order": 2,
       "translations": {
         "pt": {
           "title": "Usopp se junta à tripulação",
@@ -593,6 +655,22 @@
     {
       "eventId": 9,
       "characterVersionId": 1
+    },
+    {
+      "eventId": 10,
+      "characterVersionId": 1
+    },
+    {
+      "eventId": 10,
+      "characterVersionId": 5
+    },
+    {
+      "eventId": 10,
+      "characterVersionId": 9
+    },
+    {
+      "eventId": 10,
+      "characterVersionId": 10
     }
   ]
 }

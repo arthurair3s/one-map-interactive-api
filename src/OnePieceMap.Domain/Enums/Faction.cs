@@ -6,5 +6,6 @@ public enum Faction
     BuggyPirates,
     ArlongPirates,
     MarineForces,
-    Unaffiliated
+    Unaffiliated,
+    BlackCatPirates
 }
