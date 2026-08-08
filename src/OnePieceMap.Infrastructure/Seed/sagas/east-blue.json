@@ -1,0 +1,319 @@
+{
+  "saga": { "id": 1, "name": "East Blue", "order": 1 },
+  "arcs": [
+    { "id": 1, "name": "Romance Dawn", "order": 1, "globalOrder": 1 }
+  ],
+  "islands": [
+    {
+      "id": 1, "name": "Foosha Village", "slug": "foosha-village",
+      "description": "A quiet windmill-dotted fishing village on Dawn Island, tucked into the Goa Kingdom's eastern coast. Foosha is Luffy's birthplace and the starting point of his journey — the place where he first crossed paths with Red-Haired Shanks and set out alone ten years later to make good on the promise he made him.",
+      "coordinateX": 0, "coordinateY": 0, "coordinateZ": 0,
+      "rotationY": 0, "scale": 1,
+      "modelUrl": "/models/foosha-village.glb", "thumbnailUrl": "/thumbs/foosha-village.png",
+      "isActive": true,
+      "translations": {
+        "pt": {
+          "name": "Vila Foosha",
+          "description": "Uma vila de pescadores tranquila, cheia de moinhos de vento, na costa leste do Reino de Goa, na Ilha do Amanhecer (Dawn Island). Foosha é o local de nascimento de Luffy e o ponto de partida de sua jornada — onde ele cruzou o caminho de Shanks Ruivo pela primeira vez e, dez anos depois, partiu sozinho para cumprir a promessa que fez a ele."
+        }
+      }
+    },
+    {
+      "id": 2, "name": "Shells Town", "slug": "shells-town",
+      "description": "A coastal town held hostage for three years by the Marines' corrupt 153rd Branch, ruled with an iron hand — and an iron axe — by Captain Morgan. Its skyline of cannon-studded watchtowers loomed over ordinary residents like Ririka, who kept her tavern open despite the fear, and her daughter Rika, who paid the price for one act of kindness: sneaking food to a swordsman Morgan's son had tied up and left to starve. That swordsman, Roronoa Zoro, and the boy who freed him, Luffy, are the reason the town's watchtowers now answer to someone else.",
+      "coordinateX": 15, "coordinateY": 0, "coordinateZ": 8,
+      "rotationY": 0, "scale": 1,
+      "modelUrl": "/models/shells-town.glb", "thumbnailUrl": "/thumbs/shells-town.png",
+      "isActive": true,
+      "translations": {
+        "pt": {
+          "name": "Cidade das Conchas (Shells Town)",
+          "description": "Uma cidade litorânea mantida refém por três anos pela corrupta 153ª Filial da Marinha, governada com mão de ferro — e uma mão literalmente de machado — pelo Capitão Morgan. Seu horizonte de torres de vigia cheias de canhões pairava sobre moradores comuns como Ririka, que mantinha seu bar aberto apesar do medo, e sua filha Rika, que pagou o preço por um gesto de bondade: levar comida escondida a um espadachim que o filho de Morgan havia amarrado e deixado passar fome. Esse espadachim, Roronoa Zoro, e o garoto que o libertou, Luffy, são o motivo de as torres de vigia da cidade responderem hoje a outra pessoa."
+        }
+      }
+    }
+  ],
+  "arcIslands": [
+    { "id": 1, "arcId": 1, "islandId": 1, "order": 1 },
+    { "id": 2, "arcId": 1, "islandId": 2, "order": 2 }
+  ],
+  "characterVersions": [
+    {
+      "id": 1, "characterId": 1, "arcId": 1,
+      "alias": "Luffy", "epithet": "Straw Hat", "bounty": null, "status": "Alive",
+      "factionId": 1, "imageUrl": "/portraits/luffy-1.png",
+      "description": "A cheerful, rubber-bodied boy from Foosha Village who set sail alone to become King of the Pirates. He wears the straw hat Shanks entrusted to him and refuses to take it off, even in a fight — it's the one thing he's promised to protect until he's ready to give it back.",
+      "translations": {
+        "pt": {
+          "alias": "Luffy", "epithet": "Chapéu de Palha",
+          "description": "Um garoto alegre e de corpo elástico, natural da Vila Foosha, que partiu sozinho rumo ao sonho de se tornar o Rei dos Piratas. Usa o chapéu de palha que Shanks lhe confiou e se recusa a tirá-lo, mesmo em batalha — é a única coisa que prometeu proteger até estar pronto para devolvê-lo."
+        }
+      }
+    },
+    {
+      "id": 2, "characterId": 7, "arcId": 1,
+      "alias": "Shanks", "epithet": "Red-Haired", "bounty": null, "status": "Alive",
+      "factionId": 4, "imageUrl": "/portraits/shanks-1.png",
+      "description": "Captain of the Red Hair Pirates, who anchored at Foosha Village for a season and became young Luffy's idol. He lost his left arm shielding Luffy from a Sea King, then left him his own straw hat as a promise to be kept, not a keepsake.",
+      "translations": {
+        "pt": {
+          "alias": "Shanks", "epithet": "Ruivo",
+          "description": "Capitão dos Piratas Ruivos, que ancorou por uma temporada na Vila Foosha e se tornou o ídolo do pequeno Luffy. Perdeu o braço esquerdo ao proteger Luffy de um Rei do Mar, e depois lhe deixou seu próprio chapéu de palha — não como lembrança, mas como uma promessa a ser cumprida."
+        }
+      }
+    },
+    {
+      "id": 3, "characterId": 2, "arcId": 1,
+      "alias": "Koby", "epithet": "", "bounty": null, "status": "Alive",
+      "factionId": 5, "imageUrl": "/portraits/koby-1.png",
+      "description": "A timid young man forced to serve Alvida's crew for two years before Luffy's arrival freed him. Inspired by that first taste of courage, he sets his own goal — becoming a Marine — and stays behind in Shells Town to begin training toward it.",
+      "translations": {
+        "pt": {
+          "alias": "Coby", "epithet": "",
+          "description": "Um rapaz tímido, forçado a servir a tripulação de Alvida por dois anos até a chegada de Luffy libertá-lo. Inspirado por aquele primeiro gesto de coragem, define seu próprio objetivo — tornar-se um fuzileiro da Marinha — e permanece em Cidade das Conchas para começar seu treinamento."
+        }
+      }
+    },
+    {
+      "id": 4, "characterId": 3, "arcId": 1,
+      "alias": "Alvida", "epithet": "Iron Mace", "bounty": 5000000, "status": "Alive",
+      "factionId": 2, "imageUrl": "/portraits/alvida-1.png",
+      "description": "Captain of the Alvida Pirates and the first pirate Luffy crosses paths with after leaving home. She rules her crew — and Koby — through fear and a spiked iron mace capable of crushing a man in a single swing. The Vivre Card databook credits her with a bounty of 5,000,000 berries, high for her rank in the East Blue — until a single punch from Luffy sends her overboard.",
+      "translations": {
+        "pt": {
+          "alias": "Alvida", "epithet": "Maça de Ferro",
+          "description": "Capitã dos Piratas de Alvida e a primeira pirata que Luffy encontra depois de deixar sua vila. Comanda a tripulação — e Coby — pelo medo e por uma maça de ferro com espinhos capaz de esmagar um homem com um só golpe. O Vivre Card lhe atribui uma recompensa de 5.000.000 berries, alta para o padrão dela no East Blue — até um soco de Luffy jogá-la ao mar."
+        }
+      }
+    },
+    {
+      "id": 5, "characterId": 4, "arcId": 1,
+      "alias": "Roronoa Zoro", "epithet": "Pirate Hunter", "bounty": null, "status": "Alive",
+      "factionId": 1, "imageUrl": "/portraits/zoro-1.png",
+      "description": "A wandering swordsman who hunts pirates for their bounties, known across the region as the Pirate Hunter. Framed and starved for a month by Helmeppo after standing up to him, he's freed by Luffy and agrees to join his crew — on the condition that his own goal, becoming the world's greatest swordsman, always comes first.",
+      "translations": {
+        "pt": {
+          "alias": "Roronoa Zoro", "epithet": "Caçador de Piratas",
+          "description": "Um espadachim errante que caça piratas por suas recompensas, conhecido na região como Caçador de Piratas. Incriminado por Helmeppo e deixado sem comida por um mês depois de enfrentá-lo, é libertado por Luffy e aceita entrar para sua tripulação — com a condição de que seu próprio objetivo, tornar-se o maior espadachim do mundo, sempre venha em primeiro lugar."
+        }
+      }
+    },
+    {
+      "id": 6, "characterId": 5, "arcId": 1,
+      "alias": "Helmeppo", "epithet": "", "bounty": null, "status": "Alive",
+      "factionId": 3, "imageUrl": "/portraits/helmeppo-1.png",
+      "description": "The spoiled son of Captain Morgan, who trades on his father's rank to terrorize Shells Town. He has Zoro arrested on a whim, then breaks his own promise to free him — a betrayal that seals his father's downfall as much as his own.",
+      "translations": {
+        "pt": {
+          "alias": "Helmeppo", "epithet": "",
+          "description": "Filho mimado do Capitão Morgan, que usa a patente do pai para aterrorizar Cidade das Conchas. Manda prender Zoro por capricho e depois quebra a própria promessa de libertá-lo — uma traição que sela a queda do pai tanto quanto a dele mesmo."
+        }
+      }
+    },
+    {
+      "id": 7, "characterId": 6, "arcId": 1,
+      "alias": "Morgan", "epithet": "Axe-Hand", "bounty": null, "status": "Alive",
+      "factionId": 3, "imageUrl": "/portraits/morgan-1.png",
+      "description": "Captain of the Marines' 153rd Branch, whose steel axe hand replaced the arm he lost years earlier. Three years of unchecked cruelty toward Shells Town end when Luffy and Zoro defeat him, costing him both his command and his authority over the town.",
+      "translations": {
+        "pt": {
+          "alias": "Morgan", "epithet": "Mão de Machado",
+          "description": "Capitão da 153ª Filial da Marinha, cujo braço de aço em forma de machado substitui o braço que perdeu anos antes. Três anos de crueldade sem limites contra Cidade das Conchas chegam ao fim quando Luffy e Zoro o derrotam, custando-lhe tanto o comando quanto a autoridade sobre a cidade."
+        }
+      }
+    },
+    {
+      "id": 8, "characterId": 8, "arcId": 1,
+      "alias": "Rika", "epithet": "", "bounty": null, "status": "Alive",
+      "factionId": 5, "imageUrl": "/portraits/rika-1.png",
+      "description": "A young girl from Shells Town who watches Zoro defeat Helmeppo's wolf to protect her, then risks Morgan's wrath by sneaking him rice balls during the month he's left tied up without food.",
+      "translations": {
+        "pt": {
+          "alias": "Rika", "epithet": "",
+          "description": "Uma garota de Cidade das Conchas que vê Zoro derrotar o lobo de Helmeppo para protegê-la, e depois arrisca a fúria de Morgan ao levar escondido bolinhos de arroz para ele durante o mês em que fica amarrado sem comida."
+        }
+      }
+    },
+    {
+      "id": 9, "characterId": 9, "arcId": 1,
+      "alias": "Ririka", "epithet": "", "bounty": null, "status": "Alive",
+      "factionId": 5, "imageUrl": "/portraits/ririka-1.png",
+      "description": "Rika's mother and keeper of Shells Town's local tavern, a fixture of the town Morgan's marines never quite managed to break. She and Rika are the first to celebrate once Luffy's crew brings his tyranny to an end.",
+      "translations": {
+        "pt": {
+          "alias": "Ririka", "epithet": "",
+          "description": "Mãe de Rika e dona do bar local de Cidade das Conchas, uma presença que os fuzileiros de Morgan nunca conseguiram calar de vez. Ela e Rika são as primeiras a comemorar quando a tripulação de Luffy põe fim à tirania dele."
+        }
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": 1, "arcIslandId": 1, "order": 1, "type": "Lore",
+      "title": "Luffy Eats the Gum-Gum Fruit",
+      "description": "Rummaging through the Red Hair Pirates' stash, young Luffy swallows a strange fruit without a second thought — the Gum-Gum Fruit, a Devil Fruit that turns his whole body to rubber and costs him the ability to swim.",
+      "translations": {
+        "pt": {
+          "title": "Luffy Come a Fruta Gomu Gomu",
+          "description": "Vasculhando o esconderijo dos Piratas Ruivos, o pequeno Luffy engole sem pensar duas vezes uma fruta estranha — a Fruta Gomu Gomu, uma Fruta do Diabo que transforma seu corpo inteiro em borracha e lhe custa a capacidade de nadar."
+        }
+      }
+    },
+    {
+      "id": 2, "arcIslandId": 1, "order": 2, "type": "Lore",
+      "title": "Shanks Loses an Arm Saving Luffy",
+      "description": "When bandits toss Luffy into the sea to silence him, a Sea King moves in for the kill. Shanks dives in without hesitation and pulls the boy to safety — at the cost of his own left arm.",
+      "translations": {
+        "pt": {
+          "title": "Shanks Perde um Braço Salvando Luffy",
+          "description": "Quando bandidos jogam Luffy ao mar para calá-lo, um Rei do Mar avança para matá-lo. Shanks mergulha sem hesitar e resgata o garoto — ao custo do próprio braço esquerdo."
+        }
+      }
+    },
+    {
+      "id": 3, "arcIslandId": 1, "order": 3, "type": "Lore",
+      "title": "Shanks Gives Luffy His Straw Hat",
+      "description": "Before the Red Hair Pirates sail on, Shanks places his own straw hat on Luffy's head and tells him to keep it safe — and to return it in person once he's become a great pirate.",
+      "translations": {
+        "pt": {
+          "title": "Shanks Dá seu Chapéu de Palha a Luffy",
+          "description": "Antes de os Piratas Ruivos zarparem, Shanks coloca seu próprio chapéu de palha na cabeça de Luffy e pede que o guarde bem — e que o devolva pessoalmente quando se tornar um grande pirata."
+        }
+      }
+    },
+    {
+      "id": 4, "arcIslandId": 1, "order": 4, "type": "Lore",
+      "title": "Luffy Sets Sail",
+      "description": "Ten years later, seventeen-year-old Luffy leaves Foosha Village alone, launching himself out to sea in a barrel to finally begin the journey he promised Shanks he would make.",
+      "translations": {
+        "pt": {
+          "title": "Luffy Zarpa",
+          "description": "Dez anos depois, aos dezessete anos, Luffy deixa a Vila Foosha sozinho, lançando-se ao mar dentro de um barril para finalmente começar a jornada que prometeu a Shanks que faria."
+        }
+      }
+    },
+    {
+      "id": 5, "arcIslandId": 2, "order": 1, "type": "Combat",
+      "title": "Luffy Meets Koby and Defeats Alvida",
+      "description": "Luffy washes up aboard the Alvida Pirates' ship and finds Koby, a cabin boy held there against his will for two years. When Alvida threatens them both, Luffy answers with a single rubber-fisted punch that sends her flying.",
+      "translations": {
+        "pt": {
+          "title": "Luffy Conhece Coby e Derrota Alvida",
+          "description": "Luffy vai parar a bordo do navio dos Piratas de Alvida e encontra Coby, um grumete mantido ali contra a vontade havia dois anos. Quando Alvida ameaça os dois, Luffy responde com um único soco de borracha que a manda voando para longe."
+        }
+      }
+    },
+    {
+      "id": 6, "arcIslandId": 2, "order": 2, "type": "Lore",
+      "title": "Zoro's Standoff With Helmeppo",
+      "description": "Helmeppo turns his pet wolf Soro loose on Shells Town, and when the animal lunges at Rika, Zoro defeats it to protect her. Helmeppo has him arrested out of spite, tying him to a post in the Marine base courtyard with a cruel wager: survive a month without food, and he'll go free.",
+      "translations": {
+        "pt": {
+          "title": "O Confronto de Zoro com Helmeppo",
+          "description": "Helmeppo solta seu lobo de estimação, Soro, pela Cidade das Conchas, e quando o animal avança sobre Rika, Zoro o derrota para protegê-la. Helmeppo, por pura maldade, manda prendê-lo, amarrando-o a um poste no pátio da base da Marinha com uma aposta cruel: sobreviver um mês sem comida, e ele será libertado."
+        }
+      }
+    },
+    {
+      "id": 7, "arcIslandId": 2, "order": 3, "type": "Lore",
+      "title": "Helmeppo Breaks His Promise",
+      "description": "When Rika sneaks in rice balls for the starving Zoro, Helmeppo finds them, crushes them underfoot, and orders Zoro executed at dawn instead of honoring the deal he made.",
+      "translations": {
+        "pt": {
+          "title": "Helmeppo Quebra a Promessa",
+          "description": "Quando Rika consegue levar bolinhos de arroz escondidos para o faminto Zoro, Helmeppo os encontra, esmaga-os com o pé e ordena a execução de Zoro ao amanhecer, em vez de cumprir o trato que fez."
+        }
+      }
+    },
+    {
+      "id": 8, "arcIslandId": 2, "order": 4, "type": "Combat",
+      "title": "Luffy Frees Zoro and Recovers His Swords",
+      "description": "Luffy offers Zoro a place in his crew in exchange for his freedom, then storms the Marine base alone to strong-arm Helmeppo into returning Zoro's confiscated swords — arriving back just in time to stop the execution.",
+      "translations": {
+        "pt": {
+          "title": "Luffy Liberta Zoro e Recupera Suas Espadas",
+          "description": "Luffy oferece a Zoro um lugar em sua tripulação em troca da liberdade dele e depois invade sozinho a base da Marinha para forçar Helmeppo a devolver as espadas confiscadas de Zoro — voltando bem a tempo de impedir a execução."
+        }
+      }
+    },
+    {
+      "id": 9, "arcIslandId": 2, "order": 5, "type": "Combat",
+      "title": "Defeat of Captain Morgan",
+      "description": "Swords in hand, Zoro fights alongside Luffy and Koby against Morgan's marines, and together they bring down the axe-handed captain himself, ending his three-year grip on Shells Town.",
+      "translations": {
+        "pt": {
+          "title": "A Derrota do Capitão Morgan",
+          "description": "Espadas em punho, Zoro luta ao lado de Luffy e Coby contra os fuzileiros de Morgan, e juntos derrubam o próprio capitão de mão de machado, encerrando três anos de domínio sobre Cidade das Conchas."
+        }
+      }
+    },
+    {
+      "id": 10, "arcIslandId": 2, "order": 6, "type": "Lore",
+      "title": "Zoro Joins the Straw Hat Pirates",
+      "description": "With Morgan's rule broken, Zoro formally accepts Luffy's offer and becomes the first member of the Straw Hat Pirates, while Koby chooses to stay behind and begin training to become a Marine.",
+      "translations": {
+        "pt": {
+          "title": "Zoro Entra para os Piratas do Chapéu de Palha",
+          "description": "Com o domínio de Morgan quebrado, Zoro aceita formalmente a proposta de Luffy e se torna o primeiro membro dos Piratas do Chapéu de Palha, enquanto Coby decide ficar para trás e começar seu treinamento para se tornar um fuzileiro da Marinha."
+        }
+      }
+    },
+    {
+      "id": 11, "arcIslandId": 2, "order": 7, "type": "Lore",
+      "title": "Shells Town Celebrates Its Freedom",
+      "description": "With Morgan gone, Ririka throws open her tavern and, alongside Rika and the base's own relieved marine garrison, honors Luffy, Zoro, and Koby as the ones who finally freed the town from three years of fear.",
+      "translations": {
+        "pt": {
+          "title": "Cidade das Conchas Celebra a Liberdade",
+          "description": "Com Morgan fora do caminho, Ririka abre as portas do bar e, ao lado de Rika e da própria guarnição da base — aliviada por se ver livre dele —, homenageia Luffy, Zoro e Coby como os responsáveis por finalmente libertar a cidade de três anos de medo."
+        }
+      }
+    },
+    {
+      "id": 12, "arcIslandId": 2, "order": 8, "type": "Lore",
+      "title": "Parting Ways in Shells Town",
+      "description": "Koby stays behind to begin his Marine training under the base's new command, while Luffy and Zoro sail off from Shells Town together in a small boat, the crew's first two members setting out to find the rest.",
+      "translations": {
+        "pt": {
+          "title": "A Despedida em Cidade das Conchas",
+          "description": "Coby fica para trás para começar seu treinamento na Marinha sob o novo comando da base, enquanto Luffy e Zoro partem juntos de Cidade das Conchas num pequeno barco, os dois primeiros membros da tripulação em busca do resto dela."
+        }
+      }
+    }
+  ],
+  "eventParticipants": [
+    { "eventId": 1, "characterVersionId": 1 },
+    { "eventId": 2, "characterVersionId": 1 },
+    { "eventId": 2, "characterVersionId": 2 },
+    { "eventId": 3, "characterVersionId": 1 },
+    { "eventId": 3, "characterVersionId": 2 },
+    { "eventId": 4, "characterVersionId": 1 },
+    { "eventId": 5, "characterVersionId": 1 },
+    { "eventId": 5, "characterVersionId": 3 },
+    { "eventId": 5, "characterVersionId": 4 },
+    { "eventId": 6, "characterVersionId": 5 },
+    { "eventId": 6, "characterVersionId": 6 },
+    { "eventId": 6, "characterVersionId": 8 },
+    { "eventId": 7, "characterVersionId": 5 },
+    { "eventId": 7, "characterVersionId": 6 },
+    { "eventId": 7, "characterVersionId": 8 },
+    { "eventId": 8, "characterVersionId": 1 },
+    { "eventId": 8, "characterVersionId": 5 },
+    { "eventId": 8, "characterVersionId": 6 },
+    { "eventId": 9, "characterVersionId": 1 },
+    { "eventId": 9, "characterVersionId": 5 },
+    { "eventId": 9, "characterVersionId": 3 },
+    { "eventId": 9, "characterVersionId": 7 },
+    { "eventId": 10, "characterVersionId": 1 },
+    { "eventId": 10, "characterVersionId": 5 },
+    { "eventId": 10, "characterVersionId": 3 },
+    { "eventId": 11, "characterVersionId": 1 },
+    { "eventId": 11, "characterVersionId": 5 },
+    { "eventId": 11, "characterVersionId": 3 },
+    { "eventId": 11, "characterVersionId": 8 },
+    { "eventId": 11, "characterVersionId": 9 },
+    { "eventId": 12, "characterVersionId": 1 },
+    { "eventId": 12, "characterVersionId": 5 },
+    { "eventId": 12, "characterVersionId": 3 }
+  ]
+}

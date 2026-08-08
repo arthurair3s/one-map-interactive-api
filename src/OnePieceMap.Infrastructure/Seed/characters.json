@@ -1,3 +1,13 @@
 {
-  "characters": []
+  "characters": [
+    { "id": 1, "name": "Monkey D. Luffy", "slug": "luffy" },
+    { "id": 2, "name": "Koby", "slug": "koby" },
+    { "id": 3, "name": "Alvida", "slug": "alvida" },
+    { "id": 4, "name": "Roronoa Zoro", "slug": "zoro" },
+    { "id": 5, "name": "Helmeppo", "slug": "helmeppo" },
+    { "id": 6, "name": "Morgan", "slug": "morgan" },
+    { "id": 7, "name": "Shanks", "slug": "shanks" },
+    { "id": 8, "name": "Rika", "slug": "rika" },
+    { "id": 9, "name": "Ririka", "slug": "ririka" }
+  ]
 }

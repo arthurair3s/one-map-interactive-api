@@ -1,3 +1,14 @@
 {
-  "factions": []
+  "factions": [
+    { "id": 1, "name": "Straw Hat Pirates", "slug": "straw-hat-pirates",
+      "translations": { "pt": { "name": "Piratas do Chapéu de Palha" } } },
+    { "id": 2, "name": "Alvida Pirates", "slug": "alvida-pirates",
+      "translations": { "pt": { "name": "Piratas de Alvida" } } },
+    { "id": 3, "name": "Marines", "slug": "marines",
+      "translations": { "pt": { "name": "Marinha" } } },
+    { "id": 4, "name": "Red Hair Pirates", "slug": "red-hair-pirates",
+      "translations": { "pt": { "name": "Piratas Ruivos" } } },
+    { "id": 5, "name": "Unaffiliated", "slug": "unaffiliated",
+      "translations": { "pt": { "name": "Sem Facção" } } }
+  ]
 }
