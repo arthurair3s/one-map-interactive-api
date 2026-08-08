@@ -2,4 +2,7 @@
   <Folder Name="/src/">
     <Project Path="src/OnePieceMap.Api.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OnePieceMap.Tests/OnePieceMap.Tests.csproj" />
+  </Folder>
 </Solution>

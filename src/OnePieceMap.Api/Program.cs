@@ -79,3 +79,6 @@ app.UseCors("Frontend");
 app.MapControllers();
 
 app.Run();
+
+// Exposed for WebApplicationFactory<Program> in integration tests.
+public partial class Program;

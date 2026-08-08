@@ -48,7 +48,6 @@ Add `-v` to also drop the Postgres volume (full reset).
 ## Running locally without Docker
 
 Requires a PostgreSQL instance reachable via a connection string in `src/OnePieceMap.Api/appsettings.Development.json` (or the `ConnectionStrings__DefaultConnection` environment variable).
-||||
 
 ```bash
 cd src
@@ -57,6 +56,15 @@ dotnet run --project OnePieceMap.Api.csproj
 ```
 
 Migrations and seeding also run automatically on startup in Development.
+
+## Running tests
+
+```bash
+dotnet test tests/OnePieceMap.Tests
+```
+
+- **Unit tests** (`Unit/`) — Service-layer business rules (RN01, RN05, RN12), backed by EF Core's InMemory provider. No external dependency.
+- **Integration tests** (`Integration/`) — hit real HTTP endpoints via `WebApplicationFactory`, backed by a real Postgres instance spun up per test run with Testcontainers (covers RN07, RN08, RN11). **Requires Docker running.**
 
 ## Project structure
 
