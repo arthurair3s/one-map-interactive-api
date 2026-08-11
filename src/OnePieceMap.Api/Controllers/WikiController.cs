@@ -56,4 +56,19 @@ public class WikiController(WikiService service) : ControllerBase
 
         return Ok(await service.GetIslandDetailsBySlugAsync(slug, arcId!.Value, locale));
     }
+
+    /// <summary>Character with every CharacterVersion reached so far (Arc.GlobalOrder &lt;= arcId, RN09-style accumulation — not RN05's single effective version), for the version carousel. RN08, RN12.</summary>
+    [HttpGet("characters/{slug}/details")]
+    [ProducesResponseType(typeof(CharacterDetailsDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<CharacterDetailsDto>> GetCharacterDetailsBySlug(string slug, [FromQuery] int? arcId, [FromQuery] string? locale = null)
+    {
+        if (this.RequireQueryParam(arcId, nameof(arcId)) is { } invalid)
+        {
+            return invalid;
+        }
+
+        return Ok(await service.GetCharacterDetailsBySlugAsync(slug, arcId!.Value, locale));
+    }
 }

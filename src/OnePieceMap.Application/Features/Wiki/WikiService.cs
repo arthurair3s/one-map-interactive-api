@@ -146,17 +146,51 @@ public class WikiService(AppDbContext context, CharacterVersionService character
                 continue;
             }
 
-            var characterName = await context.Characters
+            var characterInfo = await context.Characters
                 .Where(c => c.Id == characterId)
-                .Select(c => c.Name)
+                .Select(c => new { c.Name, c.Slug })
                 .FirstAsync();
 
             characters.Add(new CharacterAppearanceDto(
-                characterId, characterName, effective.Alias, effective.Epithet,
+                characterId, characterInfo.Slug, characterInfo.Name, effective.Alias, effective.Epithet,
                 effective.Bounty, effective.Status, effective.Faction, effective.ImageUrl));
         }
 
         return new IslandDetailsDto(island.Id, islandName, islandDescription, eventSummaries, characters);
+    }
+
+    // Slug variant for GET /wiki/characters/{slug}/details: same public/readable-URL
+    // reasoning as GetIslandDetailsBySlugAsync.
+    public async Task<CharacterDetailsDto> GetCharacterDetailsBySlugAsync(string slug, int arcId, string? locale = null)
+    {
+        var character = await context.Characters.FirstOrDefaultAsync(c => c.Slug == slug)
+            ?? throw new NotFoundException($"Character '{slug}' not found.");
+
+        var activeArc = await context.Arcs.FirstOrDefaultAsync(a => a.Id == arcId)
+            ?? throw new NotFoundException($"Arc {arcId} not found.");
+
+        // RN09-style accumulation applied to CharacterVersion instead of Event: every version
+        // whose Arc.GlobalOrder the reader has already reached, not just the one currently
+        // effective (that's RN05, used elsewhere for a single resolved version) — the carousel
+        // shows the character's revealed history so far.
+        var versions = await context.CharacterVersions
+            .Include(cv => cv.Arc)
+            .Include(cv => cv.Faction)
+            .Where(cv => cv.CharacterId == character.Id && cv.Arc.GlobalOrder <= activeArc.GlobalOrder)
+            .OrderBy(cv => cv.Arc.GlobalOrder)
+            .ToListAsync();
+
+        var versionDtos = versions.Select(v => new CharacterVersionDetailsDto(
+            v.Id,
+            LocaleResolver.Resolve(v.Alias, v.Translations, locale, t => t.Alias),
+            LocaleResolver.Resolve(v.Epithet, v.Translations, locale, t => t.Epithet),
+            v.Bounty, v.Status.ToString(),
+            LocaleResolver.Resolve(v.Faction.Name, v.Faction.Translations, locale, t => t.Name),
+            v.ImageUrl,
+            LocaleResolver.Resolve(v.Description, v.Translations, locale, t => t.Description),
+            v.Arc.Id, LocaleResolver.Resolve(v.Arc.Name, v.Arc.Translations, locale, t => t.Name), v.Arc.GlobalOrder));
+
+        return new CharacterDetailsDto(character.Id, character.Name, character.Slug, versionDtos);
     }
 
     private async Task EnsureArcExistsAsync(int arcId)

@@ -13,5 +13,5 @@ public record EventSummaryDto(
     int ArcId, string ArcName, int ArcGlobalOrder);
 
 public record CharacterAppearanceDto(
-    int CharacterId, string Name, string Alias, string Epithet,
+    int CharacterId, string Slug, string Name, string Alias, string Epithet,
     long? Bounty, string Status, string Faction, string ImageUrl);

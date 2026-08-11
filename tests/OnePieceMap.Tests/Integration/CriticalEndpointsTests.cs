@@ -35,6 +35,18 @@ public class CriticalEndpointsTests(ApiFactoryFixture fixture)
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
+    // RN08 (same rule, applied to the character wiki endpoint): GET
+    // /wiki/characters/{slug}/details without ?arcId= must fail with 400.
+    [Fact]
+    public async Task GetCharacterDetails_WithoutArcId_ReturnsBadRequest()
+    {
+        var client = fixture.CreateClient();
+
+        var response = await client.GetAsync("/api/v1/wiki/characters/whoever/details");
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
     // RN07: creating an Event against a non-existent ArcIslandId must fail, not silently
     // create an orphaned row.
     [Fact]
